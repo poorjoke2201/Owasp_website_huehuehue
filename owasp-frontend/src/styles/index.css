@@ -1,0 +1,136 @@
+/* src/styles/index.css */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css?family=Gelasio&display=swap'); 
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+/* 
+html,body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  overflow-y: auto;
+  
+} */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  overflow-y: auto; /* allow vertical scrolling */
+}
+
+/* Globe container */
+.globe-container {
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+/* WASP letters styling */
+
+/* WASP letters styling matching globe glow */
+.letters {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  font-size: 6rem; /* big & impactful */
+  font-weight: 900;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  line-height: 1;
+}
+
+.letter {
+  color: #f0f0f0; /* soft off-white to match globe base */
+  font-weight: 900;
+  position: relative;
+  z-index: 2;
+
+  /* Glow similar to globe */
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.5),   /* inner glow */
+    0 0 12px rgba(255, 255, 255, 0.35),  /* soft outer glow */
+    2px 2px 8px rgba(0, 0, 0, 0.7);      /* subtle shadow for depth */
+  
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.letter:hover {
+  transform: scale(1.1);
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(255, 255, 255, 0.5),
+    3px 3px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Optional: letters behind for 3D depth */
+.letter-behind {
+  z-index: -1;
+  color: rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
+}
+/* Replace or add a blocky font for taglines */
+
+
+.tagline {
+  font-family: 'Anton', sans-serif; /* blocky, all caps */
+  font-weight: 400; /* Anton is already heavy */
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #f0f0f0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #00bfff;
+  padding-right: 3px;
+  min-height: 2rem; /* reserve height so OWASP doesn't shift */
+  z-index: 2;
+  position: relative;
+
+  /* Glow effect like globe */
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.5),
+    0 0 12px rgba(255, 255, 255, 0.35),
+    2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Scroll-down button */
+.scroll-down-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 60px;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.scroll-down-btn .arrow {
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: rotate(45deg);
+  margin-top: 10px;
+  animation:alternate-reverse;
+}
+
+@keyframes arrowMove {
+  0% { transform: rotate(45deg) translateY(0); opacity: 1; }
+  50% { transform: rotate(45deg) translateY(10px); opacity: 0.6; }
+  100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+}
+
