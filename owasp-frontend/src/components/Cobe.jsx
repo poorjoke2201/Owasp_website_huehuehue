@@ -1,3 +1,5 @@
+// src/components/Cobe.jsx
+
 import { useEffect, useRef } from "react";
 import createGlobe from "cobe";
 

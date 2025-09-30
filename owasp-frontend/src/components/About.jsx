@@ -170,7 +170,7 @@ export default function About() {
             fontFamily: "monospace",
             lineHeight: 1.6,
             marginTop: "2rem",
-            color: "#00bfff",
+            color: "#4f74e5",
             fontStyle: "italic",
             textShadow: "0 0 8px rgba(0,191,255,0.25), 0 0 12px rgba(0,191,255,0.12)",
             minHeight: "1.6em", // reserve height to avoid layout shift during animation

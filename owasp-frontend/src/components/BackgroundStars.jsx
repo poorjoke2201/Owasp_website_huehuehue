@@ -10,8 +10,8 @@ export default function BackgroundStars() {
     const ctx = canvas.getContext("2d");
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth+500;
+      canvas.height = window.innerHeight+500;
     };
     resize();
     window.addEventListener("resize", resize);

@@ -1,3 +1,5 @@
+// src/components/Tagline.jsx
+
 import { useState, useEffect } from "react";
 
 const taglines = [
@@ -61,7 +63,7 @@ export default function Tagline() {
         textAlign: "center",
         whiteSpace: "nowrap",
         overflow: "hidden",
-        borderRight: "5px solid #6471c2ff", // blue cursor
+        borderRight: "5px solid #4f74e5", // blue cursor
         paddingRight: "3px",
         textTransform: "uppercase", // ensure block letters
         zIndex: 2,

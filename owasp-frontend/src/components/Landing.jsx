@@ -1,17 +1,17 @@
 // src/components/Landing.jsx
+'use client';
 
 import Tagline from "./Tagline";
 import { motion } from "framer-motion";
 import CobeComponent from "./Cobe"; 
 import BackgroundStars from "./BackgroundStars"; 
-import "../styles/index.css"; 
 
 export default function Landing() {
-  const scrollToAbout = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: "smooth",
-    });
+  const scrollToSection = (sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -24,47 +24,57 @@ export default function Landing() {
         alignItems: "center",
         flexDirection: "column",
         background: "black",
-        // overflow: "hidden",
         position: "relative",
       }}
     >
       {/* Starry background */}
       <BackgroundStars />
 
-      {/* OWASP Letters + Globe */}
-      <div className="letters" style={{ position: "relative", zIndex: 2 }}>
-        <motion.div
-          initial={{ x: 300, y: -200, opacity: 1 }}
-          animate={{ x: -180, y: -180, opacity: 1 }}
-          transition={{ duration: 1.6, ease: "circIn" }}
-          style={{ zIndex: 10 }}
-        >
-          <CobeComponent />
-        </motion.div>
-
-        {["W", "a", "s", "P"].map((letter, index) => (
+      {/* OWASP Letters + Globe + Tagline (shifted lower) */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          transform: "translateY(80px)",
+        }}
+      >
+        {/* OWASP Letters + Globe */}
+        <div className="letters" style={{ position: "relative", zIndex: 2 }}>
           <motion.div
-            key={letter}
-            initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 1.25 }}
-            transition={{ delay: 1.4 + index * -0.3, duration: 0 }}
-            className="letter"
+            initial={{ x: 300, y: -200, opacity: 1 }}
+            animate={{ x: -180, y: -180, opacity: 1 }}
+            transition={{ duration: 1.6, ease: "circIn" }}
+            style={{ zIndex: 10 }}
           >
-            {letter}
+            <CobeComponent />
           </motion.div>
-        ))}
-      </div>
 
-      {/* Tagline with typing effect */}
-      <Tagline />
+          {["W", "a", "s", "P"].map((letter, index) => (
+            <motion.div
+              key={letter}
+              initial={{ opacity: 0, scale: 1 }}
+              animate={{ opacity: 1, scale: 1.25 }}
+              transition={{ delay: 1.4 + index * -0.3, duration: 0 }}
+              className="letter"
+            >
+              {letter}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Tagline with typing effect */}
+        <Tagline />
+      </div>
 
       {/* Scroll-down button */}
       <div
         className="scroll-down-btn"
-        onClick={scrollToAbout}
+        onClick={() => scrollToSection("about")}
       >
-        <div className="arrow"
-        onClick={{scrollToAbout}}></div>
+        <div className="arrow"></div>
       </div>
     </div>
   );
