@@ -57,7 +57,7 @@ export default function Tagline() {
       style={{
         marginTop: "2rem",
         fontSize: "1.6rem", // slightly bigger than before
-        fontFamily: "'Montserrat', sans-serif",
+        fontFamily: "'Roboto', sans-serif", // changed the font
         fontWeight: 900, // bold
         letterSpacing: "2px",
         textAlign: "center",

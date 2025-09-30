@@ -1,0 +1,32 @@
+.shiny-text {
+  display: inline-block;
+  color: #ffffff;
+  font-family: 'Anton', sans-serif; /* match your heading font */
+  font-size: 3rem;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #4f74e5 25%,
+    #ffffff 50%,
+    #4f74e5 75%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shiny-text-animation linear infinite;
+}
+
+@keyframes shiny-text-animation {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.shiny-text.disabled {
+  animation: none;
+  color: #ffffff;
+}

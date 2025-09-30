@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import BackgroundStars from "./BackgroundStars";
 import OwaspBookshelf from "./OwaspBookshelf";
 import Owasp from "../assets/OWASP_20250923_094805_0000.png"
+import ShinyText from '../functions/ShinyText';
+
 export default function About() {
   const aboutRef = useRef(null);
   const rafRef = useRef(null);
@@ -122,7 +124,7 @@ export default function About() {
           }}
         />
         
-        <h1
+        {/* <h1
           style={{
             fontFamily: "Anton, sans-serif",
             marginTop: "0rem",
@@ -132,14 +134,23 @@ export default function About() {
           }}
         >
           About OWASP
+        </h1> */}
+        <h1
+         style={{
+          marginTop: "0rem",
+          marginBottom: "1rem",
+          textShadow: "0 0 10px rgba(255,255,255,0.12)",
+         }}
+        >
+        <ShinyText text="About OWASP" speed={20} />
         </h1>
 
         <p
           style={{
             fontSize: "1.15rem",
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily: "Roboto, sans-serif",
             textAlign: "justify",
-            lineHeight: 1.75,
+            lineHeight: 1.5,
             marginBottom: "1rem",
           }}
         >
@@ -153,9 +164,9 @@ export default function About() {
         <p
           style={{
             fontSize: "1.15rem",
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily: "'Roboto', sans-serif",
             textAlign: "justify",
-            lineHeight: 1.75,
+            lineHeight: 1.5,
           }}
         >
           Through education, tools, and community-driven projects, OWASP empowers
