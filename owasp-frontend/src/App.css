@@ -1,8 +1,21 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* src/index.css */
+html, body, #root {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black; /* keep your default BG */
+  color: #fff;
+  overflow-y: auto; /* ensure document is scrollable */
+  overscroll-behavior-y: auto; /* avoid aggressive snap/overscroll */
 }
 
 .logo {

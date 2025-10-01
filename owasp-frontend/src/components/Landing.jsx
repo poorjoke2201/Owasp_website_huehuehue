@@ -23,8 +23,12 @@ export default function Landing() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        background: "black",
+        // Keeping background black ensures it is an opaque scroll sink
+        background: "black", 
         position: "relative",
+        // CRITICAL: Must be auto to catch scroll events
+        pointerEvents: 'auto',
+        
       }}
     >
       {/* Starry background */}

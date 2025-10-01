@@ -1,7 +1,7 @@
-// src/App.jsx
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Landing from "./components/Landing";
 import About from "./components/About";
+import Team from "./components/Team";
 import BackgroundStars from "./components/BackgroundStars";
 import Dock from "./components/Dock";
 import { Home, Globe, Eye, Image, Users } from "lucide-react";
@@ -9,24 +9,8 @@ import { Home, Globe, Eye, Image, Users } from "lucide-react";
 export default function App() {
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    const container = containerRef.current;
-
-    const onWheel = (e) => {
-      e.preventDefault();
-      const direction = e.deltaY > 0 ? 1 : -1;
-      container.scrollBy({
-        top: direction * window.innerHeight,
-        behavior: "smooth",
-      });
-    };
-
-    container.addEventListener("wheel", onWheel, { passive: false });
-
-    return () => {
-      container.removeEventListener("wheel", onWheel);
-    };
-  }, []);
+  // You have 3 full-height sections defined.
+  const TOTAL_SECTION_COUNT = 3; 
 
   const scrollToSection = (sectionId) => {
     const container = containerRef.current;
@@ -50,11 +34,10 @@ export default function App() {
 
   return (
     <>
-      {/* Dock at App level - stays visible across all sections */}
-      <Dock 
+      <Dock
         items={dockItems}
-        panelHeight={60}          
-        baseItemSize={50}         
+        panelHeight={60}
+        baseItemSize={50}
         magnification={0}
         distance={0}
         spring={{ mass: 200, stiffness: 50000, damping: 4000 }}
@@ -65,16 +48,43 @@ export default function App() {
         style={{
           width: "100vw",
           height: "100vh",
-          overflow: "hidden",
-          scrollSnapType: "y mandatory",
+          overflowY: "auto",
+          overflowX: "hidden", 
+          scrollSnapType: "y proximity",
+          position: 'relative', 
+          // CRITICAL FIX: Elevate the main scroll container above the fixed BackgroundStars (z-index 0)
+          zIndex: 5, 
         }}
       >
+        {/* BackgroundStars is fixed, so it's rendered here but its Z-index is handled by its own component's style */}
         <BackgroundStars />
-        <section id="landing" style={{ width: "100vw", height: "100vh", scrollSnapAlign: "start" }}>
+
+        {/* 💡 SCROLL CATCH LAYER: Fixes the dead zones. Z-INDEX 1. */}
+        {/* It must be placed *after* BackgroundStars in the JSX flow to benefit from the stacking context. */}
+        <div 
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: `${TOTAL_SECTION_COUNT * 100}vh`, 
+                width: '100%',
+                backgroundColor: 'transparent', 
+                pointerEvents: 'auto', 
+                // Z-index 1 is lower than the sections (which are z-index 5 by inheritance) 
+                // but higher than the background (z-index 0).
+                zIndex: 1, 
+            }}
+        />
+        
+        {/* Content sections start here and inherit the high z-index from containerRef */}
+        <section id="landing" style={{ width: "100vw", height: "100%", scrollSnapAlign: "start" }}>
           <Landing />
         </section>
-        <section id="about" style={{ width: "100vw", height: "100vh", scrollSnapAlign: "start" }}>
+        <section id="about" style={{ width: "100vw", height: "100%", scrollSnapAlign: "start" }}>
           <About />
+        </section>
+        <section id="team" style={{ width: "100vw", height: "100%", scrollSnapAlign: "start" }}>
+          <Team />
         </section>
       </div>
     </>

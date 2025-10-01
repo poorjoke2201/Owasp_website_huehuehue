@@ -1,0 +1,46 @@
+/* src/components/Team.css */
+/* .team-section {
+  width: 90%;
+  margin: 0 auto;
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.team-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.team-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.team-toggle button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.team-toggle button.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  width: 100%;
+} */

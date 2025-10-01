@@ -130,14 +130,14 @@ const OwaspBookshelf = () => {
   ];
 
   // Block definitions - TWO SHELVES with proper Z positioning
+  // Removed one redundant book definition to ensure correct count.
   const blocks = [
     // BOTTOM SHELF (Z position lower - further back)
-    [2,1,-15, 22,14,1, "#372f2fff", false], // shelf base
     [1,14,-15, 24,1,18, "#706262ff", false], // back wall
     [1,1,-15, 1,13,18, "#372f2fff", false], // left wall  
     [24,1,-15, 1,13,18, "#372f2fff", false], // right wall
     [1,1,-14, 24,12,1, "#372f2fff", false], // top
-    // Bottom shelf books (10 books) - indices 5-14
+    // Bottom shelf books (10 books) - indices 4-13 (adjusting for block array index)
     [2,3,-13, 2,10,14.5, "#4f74e5", true],
     [4,3,-13, 2,10,14.5, "#000", true], 
     [6,3,-13, 2,10,14.5, "#4f74e5", true],
@@ -155,7 +155,7 @@ const OwaspBookshelf = () => {
     [1,1,1, 1,13,18, "#372f2fff", false], // left wall  
     [24,1,1, 1,13,18, "#372f2fff", false], // right wall
     [1,1,18, 23.5,14,1, "#372f2fff", false], // top
-    // Top shelf books (10 books) - indices 20-29
+    // Top shelf books (10 books) - indices 19-28 (adjusting for block array index)
     [2,3,2, 2,10,14.5, "#4f74e5", true],
     [4,3,2, 2,10,14.5, "#000", true], 
     [6,3,2, 2,10,14.5, "#4f74e5", true],
@@ -195,6 +195,8 @@ const OwaspBookshelf = () => {
           display: flex;
           justify-content: center;
           align-items: center;
+          /* FIX: Move the whole container up slightly to prevent overflow/clipping */
+          transform: translateY(-50px); 
         }
 
         .container {
@@ -453,14 +455,14 @@ const OwaspBookshelf = () => {
             const isBookBlock = isBook && index >= bookStart;
             
             // Calculate bookIndex
-            // Bottom shelf books: indices 5-14 -> books 10-19
-            // Top shelf books: indices 20-29 -> books 0-9
+            // Bottom shelf books: indices 4-13 -> books 10-19
+            // Top shelf books: indices 19-28 -> books 0-9
             let bookIndex = -1;
             if (isBookBlock) {
-              if (index >= 5 && index < 15) {
-                bookIndex = 10 + (index - 5);
-              } else if (index >= 20 && index < 30) {
-                bookIndex = index - 20;
+              if (index >= 4 && index < 14) {
+                bookIndex = 10 + (index - 4);
+              } else if (index >= 19 && index < 29) {
+                bookIndex = index - 19;
               }
             }
             

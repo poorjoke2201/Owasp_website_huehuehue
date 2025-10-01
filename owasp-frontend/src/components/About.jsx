@@ -84,7 +84,8 @@ export default function About() {
       ref={aboutRef}
       style={{
         width: "100vw",
-        minHeight: "10vh",
+        // FIX: Set minHeight to 100vh for scroll snapping
+        minHeight: "100vh",
         background: "black",
         color: "white",
         display: "flex",
