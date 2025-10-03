@@ -11,7 +11,7 @@ export default function InfiniteScroll({
   negativeMargin = "-0.5em",
   items = [],
   itemMinHeight = 150,
-  isTilted = false,
+  isTilted = true,
   tiltDirection = "left",
   autoplay = false,
   autoplaySpeed = 2, // visible speed

@@ -27,7 +27,8 @@ export default function Team() {
           position: absolute;
           top: 0;
           left: 0;
-          overflow-y: auto;
+          /* FIX: Allow inner scrolling */
+          overflow-y: auto; 
           -webkit-overflow-scrolling: touch;
           display: flex;
           justify-content: center;
@@ -36,7 +37,8 @@ export default function Team() {
         .team-content-container {
           width: 100%;
           max-width: 1200px;
-          padding: 10vh 2vw 20vh ; /* increased bottom padding for footer gap */
+          /* FIX 1: Reduced bottom padding from 20vh to 10vh to ensure footer visibility */
+          padding: 10vh 2vw 10vh; 
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
@@ -154,7 +156,8 @@ export default function Team() {
           display: grid;
          
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 80px 60px; /* more spacing between cards */
+          /* FIX 2: Reduced vertical gap slightly to give more room */
+          gap: 60px 60px; 
         }
 
         .card-wrapper {
@@ -169,15 +172,17 @@ export default function Team() {
         background: black;
           width: 100%;
           max-width: 1200px;
-          margin-top: 40px;
-          padding: 40px 20px 20px;
+          /* FIX 3: Increased top margin for visual separation */
+          margin-top: 60px; 
+          /* FIX 4: Increased vertical padding for a longer/taller footer area */
+          padding: 60px 20px 40px; 
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
           border-top: 1px solid rgba(255,255,255,0.1);
           color: #fff;
           flex-wrap: wrap;
-          gap: 20px;
+          gap: 30px; /* Increased gap between footer columns */
         }
 
         .footer-column {
