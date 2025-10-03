@@ -352,47 +352,82 @@ export default function DomeGallery({
         startRotRef.current = { ...rotationRef.current };
         startPosRef.current = { x: evt.clientX, y: evt.clientY };
       },
-      onDrag: ({ event, last, velocity = [0, 0], direction = [0, 0], movement }) => {
+      onDrag: ({ event, delta: [, dy] }) => { // Use delta for cleaner movement check
         if (focusedElRef.current || !draggingRef.current || !startPosRef.current) return;
+        
         const evt = event;
         const dxTotal = evt.clientX - startPosRef.current.x;
         const dyTotal = evt.clientY - startPosRef.current.y;
+        
         if (!movedRef.current) {
           const dist2 = dxTotal * dxTotal + dyTotal * dyTotal;
           if (dist2 > 16) movedRef.current = true;
         }
+        
+        const nextXAttempt = startRotRef.current.x - dyTotal / dragSensitivity;
+        
+        // --- CRITICAL INTELLIGENT SCROLL LOGIC ---
+        let shouldPreventDefault = true;
+
+        if (dy > 0 && rotationRef.current.x <= -maxVerticalRotationDeg) {
+          // Dragging DOWN (dy > 0) but dome is already at its bottom limit (-max)
+          shouldPreventDefault = false;
+        } else if (dy < 0 && rotationRef.current.x >= maxVerticalRotationDeg) {
+          // Dragging UP (dy < 0) but dome is already at its top limit (+max)
+          shouldPreventDefault = false;
+        } else if (nextXAttempt < -maxVerticalRotationDeg && dy > 0) {
+          // If the *attempted* movement would push it past the limit (drag down past bottom)
+          shouldPreventDefault = false;
+        } else if (nextXAttempt > maxVerticalRotationDeg && dy < 0) {
+          // If the *attempted* movement would push it past the limit (drag up past top)
+          shouldPreventDefault = false;
+        }
+        
+        if (shouldPreventDefault && evt.cancelable) {
+            evt.preventDefault(); 
+        }
+        // ------------------------------------------
+
+        // Apply rotation, clamping it to the limits regardless of preventDefault status
         const nextX = clamp(
-          startRotRef.current.x - dyTotal / dragSensitivity,
-          -maxVerticalRotationDeg,
-          maxVerticalRotationDeg
+            startRotRef.current.x - dyTotal / dragSensitivity,
+            -maxVerticalRotationDeg,
+            maxVerticalRotationDeg
         );
         const nextY = wrapAngleSigned(startRotRef.current.y + dxTotal / dragSensitivity);
+
         if (rotationRef.current.x !== nextX || rotationRef.current.y !== nextY) {
           rotationRef.current = { x: nextX, y: nextY };
           applyTransform(nextX, nextY);
         }
-        if (last) {
-          draggingRef.current = false;
-          let [vMagX, vMagY] = velocity;
-          const [dirX, dirY] = direction;
-          let vx = vMagX * dirX;
-          let vy = vMagY * dirY;
-          if (Math.abs(vx) < 0.001 && Math.abs(vy) < 0.001 && Array.isArray(movement)) {
-            const [mx, my] = movement;
-            vx = clamp((mx / dragSensitivity) * 0.02, -1.2, 1.2);
-            vy = clamp((my / dragSensitivity) * 0.02, -1.2, 1.2);
-          }
-          if (Math.abs(vx) > 0.005 || Math.abs(vy) > 0.005) {
-            startInertia(vx, vy);
-          } else {
-            startAutorotate();
-          }
-          if (movedRef.current) lastDragEndAt.current = performance.now();
-          movedRef.current = false;
+      },
+      onDragEnd: ({ velocity = [0, 0], direction = [0, 0], movement }) => {
+        if (focusedElRef.current) return;
+
+        draggingRef.current = false;
+        let [vMagX, vMagY] = velocity;
+        const [dirX, dirY] = direction;
+        let vx = vMagX * dirX;
+        let vy = vMagY * dirY;
+
+        if (Math.abs(vx) < 0.001 && Math.abs(vy) < 0.001 && Array.isArray(movement)) {
+          const [mx, my] = movement;
+          vx = clamp((mx / dragSensitivity) * 0.02, -1.2, 1.2);
+          vy = clamp((my / dragSensitivity) * 0.02, -1.2, 1.2);
         }
+        if (Math.abs(vx) > 0.005 || Math.abs(vy) > 0.005) {
+          startInertia(vx, vy);
+        } else {
+          startAutorotate();
+        }
+        if (movedRef.current) lastDragEndAt.current = performance.now();
+        movedRef.current = false;
       }
     },
-    { target: mainRef, eventOptions: { passive: true } }
+    { 
+      target: mainRef, 
+      eventOptions: { passive: false } 
+    }
   );
 
   useEffect(() => {
@@ -649,6 +684,14 @@ export default function DomeGallery({
       stopInertia();
     };
   }, [stopAutorotate, stopInertia]);
+  
+  // Utility function to scroll to the next section (Team)
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById('team');
+    if (nextSection) {
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div style={{
@@ -656,10 +699,9 @@ export default function DomeGallery({
       flexDirection: 'column',
       alignItems: 'center',
       minHeight: '100vh',
-      //backgroundColor: '#0d1117',
       color: '#c9d1d9',
       background: "transparent",
-      
+      position: 'relative', // Necessary for absolute positioning of the button
     }}>
       {/* HEADER WRAPPER with Z-index fix and new font styles */}
       <div style={{ 
@@ -672,9 +714,8 @@ export default function DomeGallery({
       }}>
         {/* HEADING with Anton font and responsive size */}
         <h1 style={{ 
-          // New Font Styles
           fontFamily: 'Anton, sans-serif',
-          fontSize: 'min9vw, 9rem)',
+          fontSize: 'min(9vw, 3rem)',
           textShadow: '0 0 10px rgba(255,255,255,0.12)',
           
           fontWeight: 700, 
@@ -685,7 +726,6 @@ export default function DomeGallery({
         </h1>
         {/* TAGLINE with Montserrat font and responsive size */}
         <p style={{ 
-          // New Font Styles
           fontSize: 'min(2.5vw, 1.15rem)',
           fontFamily: 'Montserrat, sans-serif',
           
@@ -758,6 +798,52 @@ export default function DomeGallery({
             <div ref={frameRef} className="frame" />
           </div>
         </main>
+      </div>
+      
+      {/* Scroll-down button component */}
+      <div
+        className="scroll-down-btn"
+        onClick={scrollToNextSection}
+        style={{
+          position: "absolute",
+          bottom: "30px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "40px",
+          height: "60px",
+          border: "2px solid #fff",
+          borderRadius: "25px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          cursor: "pointer",
+          zIndex: 100, // Ensure it's above the dome
+          pointerEvents: 'auto', // Must be interactive
+          backgroundColor: 'transparent',
+          transition: 'border-color 0.3s'
+        }}
+      >
+        <div
+          className="arrow"
+          style={{
+            width: "10px",
+            height: "10px",
+            borderBottom: "2px solid #fff",
+            borderRight: "2px solid #fff",
+            transform: "rotate(45deg)",
+            marginTop: "10px",
+            //animation: "arrowMove 1s infinite alternate",
+            transition: 'border-color 0.3s'
+          }}
+        ></div>
+        
+        {/* Inline CSS for the animation (as used in Landing page) */}
+        <style>{`
+            @keyframes arrowMove {
+              0% { transform: rotate(45deg) translateY(0); opacity: 1; }
+              100% { transform: rotate(45deg) translateY(1vh); opacity: 0.8; }
+            }
+        `}</style>
       </div>
     </div>
   );

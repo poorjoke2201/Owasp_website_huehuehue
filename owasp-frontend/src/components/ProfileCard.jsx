@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
 import { Instagram, Linkedin } from 'lucide-react'; 
 
+// --- MODIFIED GRADIENTS FOR DARKER, MUTED APPEARANCE ---
 const DEFAULT_BEHIND_GRADIENT =
-  'radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,100%,90%,var(--card-opacity)) 4%,hsla(266,50%,80%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,25%,70%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,60%,0) 100%),radial-gradient(35% 52% at 55% 20%,#00ffaac4 0%,#073aff00 100%),radial-gradient(100% 100% at 50% 50%,#00c1ffff 1%,#073aff00 76%),conic-gradient(from 124deg at 50% 50%,#c137ff40 0%,#07c6ff40 40%,#07c6ff40 60%,#c137ff40 100%)';
+  'radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,50%,50%,var(--card-opacity)) 4%,hsla(266,25%,40%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,10%,30%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,20%,0) 100%),radial-gradient(35% 52% at 55% 20%,#00aaaa66 0%,#073aff00 100%),radial-gradient(100% 100% at 50% 50%,#0080ff80 1%,#073aff00 76%),conic-gradient(from 124deg at 50% 50%,#c137ff40 0%,#07c6ff40 40%,#07c6ff40 60%,#c137ff40 100%)';
 
-const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)';
+const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg,#4433558c 0%,#5599ff44 100%)';
+// ----------------------------------------------------
 
 const ANIMATION_CONFIG = {
-  SMOOTH_DURATION: 0,
+  SMOOTH_DURATION: 150, // FIX 1: Increased duration from 0 to 150ms for smoother return animation
   INITIAL_DURATION: 2000,
   INITIAL_X_OFFSET: 70,
   INITIAL_Y_OFFSET: 60,
@@ -69,7 +71,7 @@ const ProfileCardComponent = ({
         '--pointer-from-center': `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
         '--pointer-from-top': `${percentY / 100}`,
         '--pointer-from-left': `${percentX / 100}`,
-        // 💡 FIX 1: Increased divisors for very subtle tilt
+        // Tilt divisors remain at 15 and 12 for subtle movement
         '--rotate-x': `${round(-(centerX / 15))}deg`, 
         '--rotate-y': `${round(centerY / 12)}deg`
       };
@@ -122,6 +124,7 @@ const ProfileCardComponent = ({
       if (!card || !wrap || !animationHandlers) return;
 
       const rect = card.getBoundingClientRect();
+      // FIX 2: Use event.clientX/Y - rect.left/top for correct position within the card
       animationHandlers.updateCardTransform(event.clientX - rect.left, event.clientY - rect.top, card, wrap);
     },
     [animationHandlers]
@@ -145,6 +148,7 @@ const ProfileCardComponent = ({
 
       if (!card || !wrap || !animationHandlers) return;
 
+      // FIX 3: event.offsetX/Y is usually reliable for pointerleave on the target element
       animationHandlers.createSmoothAnimation(
         ANIMATION_CONFIG.SMOOTH_DURATION,
         event.offsetX,
@@ -166,6 +170,7 @@ const ProfileCardComponent = ({
 
     if (!card || !wrap) return;
 
+    // Use passive: true for scroll events, but pointer events should be fine without it here
     card.addEventListener('pointerenter', handlePointerEnter);
     card.addEventListener('pointermove', handlePointerMove);
     card.addEventListener('pointerleave', handlePointerLeave);
@@ -188,6 +193,7 @@ const ProfileCardComponent = ({
     () => ({
       '--icon': iconUrl ? `url(${iconUrl})` : 'none',
       '--grain': grainUrl ? `url(${grainUrl})` : 'none',
+      // Using the darker gradients defined at the top
       '--behind-gradient': showBehindGradient ? (behindGradient ?? DEFAULT_BEHIND_GRADIENT) : 'none',
       '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT
     }),
@@ -218,7 +224,7 @@ const ProfileCardComponent = ({
                   </div>
                 </div> 
                 
-                {/* 💡 FIX 2: Added onClick={e => e.stopPropagation()} to ensure the link fires. */}
+                {/* Social icons, using stopPropagation to ensure links are clickable */}
                 <div className="pc-social-icons">
                   {socials.instagram && (
                     <a 

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import BackgroundStars from "./BackgroundStars";
 import OwaspBookshelf from "./OwaspBookshelf";
 import Owasp from "../assets/OWASP_20250923_094805_0000.png";
 
@@ -11,8 +10,11 @@ export default function About() {
   const [displayedText, setDisplayedText] = useState("");
   const fullMessage = "→ Explore more by clicking on the books!";
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()[]{}<>?/|\\~";
+  
+  // CRITICAL FIX: Ref to track if the animation has completed
+  const hasAnimatedRef = useRef(false); 
 
-  // --- Decrypt animation ---
+  // --- Decrypt animation (logic remains the same) ---
   const startAnimation = () => {
     cancelAnimationFrame(rafRef.current);
     frameRef.current = 0;
@@ -43,9 +45,11 @@ export default function About() {
   };
 
   const stopAnimation = () => {
+    // We remove the stop animation logic since we only want it to run once.
+    // However, we keep the function body to satisfy the original logic structure.
     cancelAnimationFrame(rafRef.current);
     frameRef.current = 0;
-    setDisplayedText("");
+    // We intentionally DO NOT reset displayedText to empty string here.
   };
 
   useEffect(() => {
@@ -55,14 +59,17 @@ export default function About() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          // Check if intersecting AND the animation hasn't played yet
+          if (entry.isIntersecting && !hasAnimatedRef.current) { 
             startAnimation();
-          } else {
-            stopAnimation();
-          }
+            hasAnimatedRef.current = true; // Set flag to prevent future runs
+          } 
+          // We no longer call stopAnimation on exiting intersection, 
+          // ensuring the final text remains visible.
         });
       },
-      { root: null, threshold: 0.55 }
+      // Keep low threshold to ensure it triggers immediately upon entering view
+      { root: null, threshold: 0.01 } 
     );
 
     observer.observe(el);
@@ -98,17 +105,22 @@ export default function About() {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          align-items: center;
+          /* Align to the start of the container */
+          align-items: flex-start; 
           gap: 4vw;
-          padding-top: 60px;
+          /* Reduce padding-top to give more vertical space */
+          padding-top: 40px; 
         }
 
         .text-column {
           flex: 1 1 45%;
           min-width: 300px;
           max-width: 600px;
-          align-self: center;
-          padding: 20px 0;
+          /* Align self to start to cooperate with container alignment */
+          align-self: flex-start; 
+          padding: 0; /* Reduced padding-top to 0 */
+          /* Shift up slightly, counteract any default margin */
+          margin-top: 0; 
         }
 
         .bookshelf-column {
@@ -119,7 +131,8 @@ export default function About() {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: -50px;
+          /* Shift bookshelf down to match visual height of text content */
+          margin-top: 50px; 
         }
 
         .owasp-logo {
@@ -157,7 +170,8 @@ export default function About() {
 
         @media (max-width: 900px) {
           .about-section {
-            height: auto;
+            height: auto; 
+            min-height: 100vh;
             padding: 4vh 4vw;
           }
 
@@ -175,6 +189,8 @@ export default function About() {
             max-width: 90vw;
             padding: 20px 0;
             margin-bottom: 0;
+            margin-top: 0; /* Ensure no unwanted margin on mobile */
+            align-self: center; /* Center mobile column again */
           }
 
           .bookshelf-column {
@@ -184,7 +200,7 @@ export default function About() {
             max-width: 90vw;
             height: auto;
             min-height: 60vh;
-            margin-top: -30px;
+            margin-top: 0; /* Resetting margin for vertical stack */
           }
 
           .about-paragraph {
@@ -208,7 +224,6 @@ export default function About() {
 
       <section id="about" ref={aboutRef} className="about-section">
        
-
         {/* Main container */}
         <div className="about-container">
           {/* Left column: Logo + Text */}
