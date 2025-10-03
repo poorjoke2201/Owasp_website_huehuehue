@@ -55,20 +55,22 @@ export default function Tagline() {
     <div
       className="tagline"
       style={{
-        marginTop: "2rem",
-        fontSize: "1.6rem", // slightly bigger than before
-        fontFamily: "'Montserrat', sans-serif",
-        fontWeight: 900, // bold
-        letterSpacing: "2px",
-        textAlign: "center",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        borderRight: "5px solid #4f74e5", // blue cursor
-        paddingRight: "3px",
-        textTransform: "uppercase", // ensure block letters
-        zIndex: 2,
-        position: "relative"
-      }}
+
+  marginTop: "-2rem",
+  fontSize: "2.8vw",
+  fontFamily: "'Montserrat', sans-serif",
+  fontWeight: 900,
+  letterSpacing: "2px",
+  textAlign: "center",
+  whiteSpace: "normal",
+  maxWidth: "90vw",
+  overflow: "hidden",
+  borderRight: "0.55vw solid #4f74e5", // Fully responsive border/cursor
+  paddingRight: "3px",
+  textTransform: "uppercase",
+  zIndex: 2,
+  position: "relative"
+}}
     >
       {currentTagline}
     </div>

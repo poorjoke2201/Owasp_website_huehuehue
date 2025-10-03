@@ -7,7 +7,7 @@ import prag from "../assets/9.png"
 import farhan from "../assets/4.png"
 import vivek from "../assets/7.png"
 import chirag from "../assets/5.png"
-import aadi from "../assets/adi2.png"
+import aadi from "../assets/11.png"
 import jihaan from "../assets/10.png"
 import prak from "../assets/6.png"
 

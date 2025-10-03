@@ -130,14 +130,13 @@ const OwaspBookshelf = () => {
   ];
 
   // Block definitions - TWO SHELVES with proper Z positioning
-  // Removed one redundant book definition to ensure correct count.
   const blocks = [
     // BOTTOM SHELF (Z position lower - further back)
     [1,14,-15, 24,1,18, "#706262ff", false], // back wall
     [1,1,-15, 1,13,18, "#372f2fff", false], // left wall  
     [24,1,-15, 1,13,18, "#372f2fff", false], // right wall
     [1,1,-14, 24,12,1, "#372f2fff", false], // top
-    // Bottom shelf books (10 books) - indices 4-13 (adjusting for block array index)
+    // Bottom shelf books (10 books) - indices 4-13
     [2,3,-13, 2,10,14.5, "#4f74e5", true],
     [4,3,-13, 2,10,14.5, "#000", true], 
     [6,3,-13, 2,10,14.5, "#4f74e5", true],
@@ -155,7 +154,7 @@ const OwaspBookshelf = () => {
     [1,1,1, 1,13,18, "#372f2fff", false], // left wall  
     [24,1,1, 1,13,18, "#372f2fff", false], // right wall
     [1,1,18, 23.5,14,1, "#372f2fff", false], // top
-    // Top shelf books (10 books) - indices 19-28 (adjusting for block array index)
+    // Top shelf books (10 books) - indices 19-28
     [2,3,2, 2,10,14.5, "#4f74e5", true],
     [4,3,2, 2,10,14.5, "#000", true], 
     [6,3,2, 2,10,14.5, "#4f74e5", true],
@@ -168,7 +167,6 @@ const OwaspBookshelf = () => {
     [20,3,2, 2,10,14.5, "#000", true]
   ];
 
-  const sqSize = 16;
   const bookStart = 5;
 
   const handleBookClick = (index) => {
@@ -180,23 +178,25 @@ const OwaspBookshelf = () => {
   };
 
   const getBlockTransform = (x, y, z, w, d, h) => {
-    return `translate3d(${sqSize*(x-1)}px, ${sqSize*(-y-(d-1))}px, ${sqSize*z + sqSize*(h-1)}px)`;
+    return `translate3d(calc(var(--sq-size) * ${x-1}), calc(var(--sq-size) * ${-y-(d-1)}), calc(var(--sq-size) * ${z + (h-1)}))`;
   };
 
   return (
     <div className="bookshelf-container">
       <style>{`
         .bookshelf-container {
+          --sq-size: 16px;
+          --perspective: 800px;
+          --container-height: 700px;
           width: 100%;
-          height: 700px;
-          perspective: 800px;
+          height: var(--container-height);
+          perspective: var(--perspective);
           transform-style: preserve-3d;
           position: relative;
           display: flex;
           justify-content: center;
           align-items: center;
-          /* FIX: Move the whole container up slightly to prevent overflow/clipping */
-          transform: translateY(-50px); 
+          transform: translateY(-50px);
         }
 
         .container {
@@ -208,17 +208,17 @@ const OwaspBookshelf = () => {
           position: relative;
           width: 100%;
           height: 100%;
-          perspective: 800px;
+          perspective: var(--perspective);
           transform-style: preserve-3d;
         }
 
         .surface {
           display: block;
-          width: ${sqSize * 24}px;
-          height: ${sqSize * 14}px;
+          width: calc(var(--sq-size) * 24);
+          height: calc(var(--sq-size) * 14);
           margin: auto;
           transform-style: preserve-3d;
-          transform: translateY(${sqSize * 3}px) rotateX(80deg) rotateZ(0deg);
+          transform: translateY(calc(var(--sq-size) * 3)) rotateX(80deg) rotateZ(0deg);
           transition: transform 0.25s;
           will-change: transform;
         }
@@ -239,10 +239,10 @@ const OwaspBookshelf = () => {
 
         .block-inner {
           position: relative;
-          width: ${sqSize}px;
+          width: var(--sq-size);
           transition: transform 0.25s linear;
           transform-style: preserve-3d;
-          transform: rotateX(-90deg) translateZ(${sqSize}px);
+          transform: rotateX(-90deg) translateZ(var(--sq-size));
         }
 
         .block-inner > div {
@@ -263,7 +263,7 @@ const OwaspBookshelf = () => {
         }
 
         .back {
-          transform: translateZ(-${sqSize}px) rotateY(180deg);
+          transform: translateZ(calc(var(--sq-size) * -1)) rotateY(180deg);
         }
 
         .back::before {
@@ -288,7 +288,7 @@ const OwaspBookshelf = () => {
 
         .left {
           transform-origin: center left;
-          transform: rotateY(270deg) translateX(-${sqSize}px);
+          transform: rotateY(270deg) translateX(calc(var(--sq-size) * -1));
         }
 
         .right {
@@ -310,8 +310,8 @@ const OwaspBookshelf = () => {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
           color: #000;
-          font-size: ${sqSize * 1.5}px;
-          line-height: ${sqSize * 1.5}px;
+          font-size: calc(var(--sq-size) * 1.5);
+          line-height: calc(var(--sq-size) * 1.5);
           font-family: "Lora", serif;
           font-weight: bold;
           text-align: center;
@@ -327,18 +327,18 @@ const OwaspBookshelf = () => {
         .spine {
           background: transparent;
           color: #fff;
-          font-size: ${sqSize * 0.9}px;
-          line-height: ${sqSize * 0.75}px;
+          font-size: calc(var(--sq-size) * 0.9);
+          line-height: calc(var(--sq-size) * 0.75);
           font-family: "Lora", serif;
           font-weight: bold;
           -webkit-font-smoothing: antialiased;
           position: absolute;
           top: 0;
           left: 0;
-          transform: rotate(90deg) translate(${sqSize * 1}px, -50%);
+          transform: rotate(90deg) translate(var(--sq-size), -50%);
           white-space: nowrap;
           width: 0;
-          height: ${sqSize}px;
+          height: var(--sq-size);
           text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
@@ -349,8 +349,8 @@ const OwaspBookshelf = () => {
         }
 
         .contents {
-          font-size: ${sqSize * 0.7}px;
-          padding: ${sqSize}px;
+          font-size: calc(var(--sq-size) * 0.7);
+          padding: var(--sq-size);
           color: #333;
           overflow: hidden;
           word-wrap: break-word;
@@ -398,10 +398,10 @@ const OwaspBookshelf = () => {
 
         /* Book hover effect */
         .book-block:hover .block-inner {
-          transform: rotateX(-90deg) translateZ(${sqSize * 4}px);
+          transform: rotateX(-90deg) translateZ(calc(var(--sq-size) * 4));
         }
 
-        /* Selected book positioning - ALL BOOKS OPEN IN CENTER */
+        /* Selected book positioning */
         ${selectedBook !== null ? `
           .book-${selectedBook} {
             animation: moveToCenter 0.5s ease-out forwards;
@@ -425,26 +425,88 @@ const OwaspBookshelf = () => {
             transform: translate3d(0, 0, 0);
           }
           100% { 
-            transform: translate3d(${sqSize * 14}px, ${sqSize * -6}px, ${sqSize * 10}px);
+            transform: translate3d(calc(var(--sq-size) * 14), calc(var(--sq-size) * -6), calc(var(--sq-size) * 10));
           }
         }
 
         @keyframes openBook {
           0% { 
-            transform: rotateX(-90deg) translateZ(${sqSize}px) rotateY(0);
+            transform: rotateX(-90deg) translateZ(var(--sq-size)) rotateY(0);
           }
           50% { 
-            transform: rotateX(-90deg) translateZ(${sqSize * 12}px) rotateY(0);
+            transform: rotateX(-90deg) translateZ(calc(var(--sq-size) * 12)) rotateY(0);
           }
           100% { 
-            transform: rotateX(-90deg) translateZ(${sqSize * 12}px) rotateY(-90deg);
+            transform: rotateX(-90deg) translateZ(calc(var(--sq-size) * 12)) rotateY(-90deg);
           }
         }
 
-        @keyframes returnBook {
-          from { transform: rotateX(-90deg) translateZ(${sqSize * 15}px) rotateY(-90deg) rotateZ(-10deg) translateZ(-${sqSize * 5}px); }
-          50% { transform: rotateX(-90deg) translateZ(${sqSize * 15}px) rotateY(0); }
-          to { transform: rotateX(-90deg) translateZ(${sqSize}px) rotateY(0); }
+        /* Mobile responsive styles */
+        @media (max-width: 900px) {
+          .bookshelf-container {
+            --sq-size: 10px;
+            --perspective: 500px;
+            --container-height: 500px;
+            transform: translateY(-20px);
+          }
+
+          .surface {
+            transform: translateY(calc(var(--sq-size) * 2)) rotateX(80deg) rotateZ(0deg);
+          }
+
+          .spine {
+            font-size: calc(var(--sq-size) * 0.7);
+            line-height: calc(var(--sq-size) * 0.6);
+          }
+
+          .right::after {
+            font-size: calc(var(--sq-size) * 1.2);
+            line-height: calc(var(--sq-size) * 1.2);
+            padding: 15% 3%;
+          }
+
+          .contents {
+            font-size: calc(var(--sq-size) * 0.6);
+            padding: calc(var(--sq-size) * 0.8);
+          }
+
+          @keyframes moveToCenter {
+            0% { 
+              transform: translate3d(0, 0, 0);
+            }
+            100% { 
+              transform: translate3d(calc(var(--sq-size) * 10), calc(var(--sq-size) * -4), calc(var(--sq-size) * 8));
+            }
+          }
+
+          @keyframes openBook {
+            0% { 
+              transform: rotateX(-90deg) translateZ(var(--sq-size)) rotateY(0);
+            }
+            50% { 
+              transform: rotateX(-90deg) translateZ(calc(var(--sq-size) * 8)) rotateY(0);
+            }
+            100% { 
+              transform: rotateX(-90deg) translateZ(calc(var(--sq-size) * 8)) rotateY(-90deg);
+            }
+          }
+        }
+
+        @media (max-width: 600px) {
+          .bookshelf-container {
+            --sq-size: 8px;
+            --perspective: 400px;
+            --container-height: 400px;
+          }
+
+          @keyframes moveToCenter {
+            0% { 
+              transform: translate3d(0, 0, 0);
+            }
+            100% { 
+              transform: translate3d(calc(var(--sq-size) * 8), calc(var(--sq-size) * -3), calc(var(--sq-size) * 6));
+            }
+          }
         }
       `}</style>
 
@@ -454,9 +516,6 @@ const OwaspBookshelf = () => {
             const [x, y, z, w, d, h, color, isBook] = block;
             const isBookBlock = isBook && index >= bookStart;
             
-            // Calculate bookIndex
-            // Bottom shelf books: indices 4-13 -> books 10-19
-            // Top shelf books: indices 19-28 -> books 0-9
             let bookIndex = -1;
             if (isBookBlock) {
               if (index >= 4 && index < 14) {
@@ -479,11 +538,11 @@ const OwaspBookshelf = () => {
                   <div 
                     className="back"
                     style={{
-                      width: `${sqSize * w}px`,
-                      height: `${sqSize * h}px`,
+                      width: `calc(var(--sq-size) * ${w})`,
+                      height: `calc(var(--sq-size) * ${h})`,
                       backgroundColor: isBook ? '#7c7373ff' : color,
                       backgroundImage: isBook ? `repeating-linear-gradient(90deg,transparent, transparent 21%, #aaa 21%, #aaa 25%, transparent 25%, transparent 46%, #aaa 46%, #aaa 50%, transparent 50%)` : 'none',
-                      backgroundSize: isBook ? `${sqSize}px ${sqSize}px` : 'auto',
+                      backgroundSize: isBook ? `var(--sq-size) var(--sq-size)` : 'auto',
                       boxShadow: isBook ? 'inset 0 0 10px rgba(0,0,0,0.3)' : 'none'
                     }}
                   />
@@ -491,22 +550,22 @@ const OwaspBookshelf = () => {
                   <div 
                     className="bottom"
                     style={{
-                      width: `${sqSize * w}px`,
-                      height: `${sqSize * d}px`,
+                      width: `calc(var(--sq-size) * ${w})`,
+                      height: `calc(var(--sq-size) * ${d})`,
                       backgroundColor: isBook ? '#fff' : color,
                       backgroundImage: isBook ? `repeating-linear-gradient(90deg,transparent, transparent 21%, #aaa 21%, #aaa 25%, transparent 25%, transparent 46%, #aaa 46%, #aaa 50%, transparent 50%)` : 'none',
-                      backgroundSize: isBook ? `${sqSize}px ${sqSize}px` : 'auto',
-                      transform: `rotateX(-90deg) translateY(-${sqSize * (d - 1)}px) translateZ(${sqSize * h}px)`
+                      backgroundSize: isBook ? `var(--sq-size) var(--sq-size)` : 'auto',
+                      transform: `rotateX(-90deg) translateY(calc(var(--sq-size) * ${-(d - 1)})) translateZ(calc(var(--sq-size) * ${h}))`
                     }}
                   />
                   
                   <div 
                     className="front"
                     style={{
-                      width: `${sqSize * w}px`,
-                      height: `${sqSize * h}px`,
+                      width: `calc(var(--sq-size) * ${w})`,
+                      height: `calc(var(--sq-size) * ${h})`,
                       backgroundColor: color,
-                      transform: `translateZ(${sqSize * (d - 1)}px)`,
+                      transform: `translateZ(calc(var(--sq-size) * ${d - 1}))`,
                       boxShadow: isBook ? '0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)' : 'none'
                     }}
                   >
@@ -520,8 +579,8 @@ const OwaspBookshelf = () => {
                   <div 
                     className="left"
                     style={{
-                      width: `${sqSize * d}px`,
-                      height: `${sqSize * h}px`,
+                      width: `calc(var(--sq-size) * ${d})`,
+                      height: `calc(var(--sq-size) * ${h})`,
                       backgroundColor: color,
                       boxShadow: isBook ? 'inset -2px 0 5px rgba(0,0,0,0.3)' : 'none'
                     }}
@@ -532,10 +591,10 @@ const OwaspBookshelf = () => {
                   <div 
                     className="right"
                     style={{
-                      width: `${sqSize * d}px`,
-                      height: `${sqSize * h}px`,
+                      width: `calc(var(--sq-size) * ${d})`,
+                      height: `calc(var(--sq-size) * ${h})`,
                       backgroundColor: isBook ? '#fff' : color,
-                      transform: `rotateY(-270deg) translate3d(${sqSize}px, 0, ${sqSize * (w - d)}px)`
+                      transform: `rotateY(-270deg) translate3d(var(--sq-size), 0, calc(var(--sq-size) * ${w - d}))`
                     }}
                     data-title={isBookBlock && bookIndex >= 0 ? books[bookIndex]?.title : ''}
                   >
@@ -559,12 +618,12 @@ const OwaspBookshelf = () => {
                   <div 
                     className="top"
                     style={{
-                      width: `${sqSize * w}px`,
-                      height: `${sqSize * d}px`,
+                      width: `calc(var(--sq-size) * ${w})`,
+                      height: `calc(var(--sq-size) * ${d})`,
                       backgroundColor: isBook ? '#fff' : color,
                       backgroundImage: isBook ? `repeating-linear-gradient(90deg,transparent, transparent 21%, #aaa 21%, #aaa 25%, transparent 25%, transparent 46%, #aaa 46%, #aaa 50%, transparent 50%)` : 'none',
-                      backgroundSize: isBook ? `${sqSize}px ${sqSize}px` : 'auto',
-                      transform: `rotateX(-90deg) translateY(-${sqSize * (d - 1)}px)`,
+                      backgroundSize: isBook ? `var(--sq-size) var(--sq-size)` : 'auto',
+                      transform: `rotateX(-90deg) translateY(calc(var(--sq-size) * ${-(d - 1)}))`,
                       boxShadow: isBook ? 'inset 0 0 5px rgba(0,0,0,0.2)' : 'none'
                     }}
                   />

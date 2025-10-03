@@ -3,6 +3,11 @@ import { useEffect, useRef } from "react";
 // Ensure you have this installed: npm install @react-spring/web
 import { useSpring } from '@react-spring/web'; 
 
+// Placeholder components to resolve compilation errors
+const BackgroundStars = () => <div style={{ zIndex: 1, position: 'absolute', width: '100%', height: '100%' }}></div>;
+const OwaspBookshelf = () => <div style={{ background: '#333', padding: '20px' }}>Bookshelf Placeholder</div>;
+const Owasp = 'https://placehold.co/120x120/000/fff?text=OWASP+Logo'; // Placeholder URL
+
 export default function CobeComponent() {
   const canvasRef = useRef(null);
   
@@ -95,20 +100,64 @@ export default function CobeComponent() {
 
   return (
     <div className="globe-container">
+      <style>{`
+        /* Responsive sizing using clamp to ensure minimum and maximum dimensions */
+        .globe-container {
+          /* Desktop/Tablet sizes */
+          width: clamp(140px, 22vw, 240px); 
+          height: clamp(140px, 22vw, 240px);
+          position: relative;
+        }
+
+        .globe-container canvas {
+          /* Oversized canvas for better visual effect and glow bleed */
+          width: 155%;
+          height: 155%;
+          opacity: 0;
+          transition: opacity 1s ease;
+          cursor: grab;
+          position: absolute; /* Allows oversized canvas to be positioned */
+          top: -27.5%; /* Center the 155% canvas */
+          left: -27.5%;
+        }
+
+        /* Adjust size for smaller tablets */
+        @media (max-width: 900px) {
+          .globe-container {
+            width: clamp(100px, 30vw, 180px);
+            height: clamp(100px, 30vw, 180px);
+          }
+        }
+
+        /* Adjust size for mobile phones */
+        @media (max-width: 600px) {
+          .globe-container {
+            width: clamp(80px, 35vw, 140px);
+            height: clamp(80px, 35vw, 140px);
+          }
+        }
+      `}</style>
+      
       <canvas
         ref={canvasRef}
         // EVENT HANDLERS
         onPointerDown={(e) => {
           pointerInteracting.current = e.clientX - pointerInteractionMovement.current;
-          canvasRef.current.style.cursor = 'grabbing';
+          if (canvasRef.current) {
+            canvasRef.current.style.cursor = 'grabbing';
+          }
         }}
         onPointerUp={() => {
           pointerInteracting.current = null;
-          canvasRef.current.style.cursor = 'grab';
+          if (canvasRef.current) {
+            canvasRef.current.style.cursor = 'grab';
+          }
         }}
         onPointerOut={() => {
           pointerInteracting.current = null;
-          canvasRef.current.style.cursor = 'grab';
+          if (canvasRef.current) {
+            canvasRef.current.style.cursor = 'grab';
+          }
         }}
         onMouseMove={(e) => {
           if (pointerInteracting.current !== null) {
@@ -119,22 +168,13 @@ export default function CobeComponent() {
         }}
         onTouchMove={(e) => {
           if (pointerInteracting.current !== null && e.touches[0]) {
-            const deltax = e.touches[0].clientX - pointerInteracting.current;
-            const deltay = e.touches[0].clientY - pointerInteracting.current;
+            const delta = e.touches[0].clientX - pointerInteracting.current;
+            // Note: delta is based only on X movement for horizontal spin
             pointerInteractionMovement.current = delta;
-            api.start({ r: delta / 10 }); 
+            api.start({ r: delta / 130 }); 
           }
         }}
-        
-        style={{
-          width: "255%",
-          height: "255%",
-         
-          
-          opacity: 1, 
-          transition: "opacity 1s ease",
-          cursor: 'grab',
-        }}
+        // Removed unnecessary inline style from canvas since CSS handles it
       />
     </div>
   );

@@ -4,23 +4,23 @@ import About from "./components/About";
 import Team from "./components/Team";
 import BackgroundStars from "./components/BackgroundStars";
 import Dock from "./components/Dock";
-import { Home, Globe, Eye, Image, Users } from "lucide-react";
+// FIX: Restoring all 5 required lucide-react icons
+import { Home, Globe, Eye, Image, Users } from "lucide-react"; 
+// FIX: Restoring imports for Vision and Gallery sections
+import Vision from "./components/Vision"; 
+import DomeGallery from "./components/DomeGallery";
+import "./styles/index.css"; // Import global styles
 
 export default function App() {
   const containerRef = useRef(null);
-
-  // You have 3 full-height sections defined.
-  const TOTAL_SECTION_COUNT = 3; 
+  // FIX: Updating the total section count to 5
+  const TOTAL_SECTION_COUNT = 5; 
 
   const scrollToSection = (sectionId) => {
-    const container = containerRef.current;
     const section = document.getElementById(sectionId);
-    if (section && container) {
-      const sectionTop = section.offsetTop;
-      container.scrollTo({
-        top: sectionTop,
-        behavior: "smooth",
-      });
+    if (section) {
+      // Use scrollIntoView on the section element itself
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -37,53 +37,53 @@ export default function App() {
       <Dock
         items={dockItems}
         panelHeight={60}
-        baseItemSize={50}
-        magnification={0}
-        distance={0}
-        spring={{ mass: 200, stiffness: 50000, damping: 4000 }}
+        // CRITICAL: Using vmin for responsive base size
+        baseItemSize="6vmin" 
+        magnification={1.8}
+        distance={250}
+        spring={{ mass:200,stiffness:50000,damping:4000}}
       />
 
+      {/* Main Scroll Container */}
       <div
         ref={containerRef}
         style={{
           width: "100vw",
           height: "100vh",
-          overflowY: "auto",
+          overflowY: "scroll",
           overflowX: "hidden", 
-          scrollSnapType: "y proximity",
+          // CRITICAL: Apply scroll snap type here
+          scrollSnapType: "y proximity", 
           position: 'relative', 
-          // CRITICAL FIX: Elevate the main scroll container above the fixed BackgroundStars (z-index 0)
-          zIndex: 5, 
+          zIndex: 5,
         }}
       >
-        {/* BackgroundStars is fixed, so it's rendered here but its Z-index is handled by its own component's style */}
+        {/* BackgroundStars is fixed and z-index 0 */}
         <BackgroundStars />
-
-        {/* 💡 SCROLL CATCH LAYER: Fixes the dead zones. Z-INDEX 1. */}
-        {/* It must be placed *after* BackgroundStars in the JSX flow to benefit from the stacking context. */}
-        <div 
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                height: `${TOTAL_SECTION_COUNT * 100}vh`, 
-                width: '100%',
-                backgroundColor: 'transparent', 
-                pointerEvents: 'auto', 
-                // Z-index 1 is lower than the sections (which are z-index 5 by inheritance) 
-                // but higher than the background (z-index 0).
-                zIndex: 1, 
-            }}
-        />
         
-        {/* Content sections start here and inherit the high z-index from containerRef */}
-        <section id="landing" style={{ width: "100vw", height: "100%", scrollSnapAlign: "start" }}>
+        {/* Content sections, each filling 100vh and snapping */}
+        <section id="landing" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
           <Landing />
         </section>
-        <section id="about" style={{ width: "100vw", height: "100%", scrollSnapAlign: "start" }}>
+        
+        <section id="about" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
           <About />
         </section>
-        <section id="team" style={{ width: "100vw", height: "100%", scrollSnapAlign: "start" }}>
+
+        {/* FIX: Restoring Vision section */}
+        <section id="vision" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
+          <Vision />
+        </section>
+        
+        {/* FIX: Restoring Gallery section */}
+        <section id="gallery" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
+          <div style={{ width: '100vw', height: '100vh' }}>
+      <DomeGallery/>
+    </div>
+          
+        </section>
+        
+        <section id="team" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
           <Team />
         </section>
       </div>
