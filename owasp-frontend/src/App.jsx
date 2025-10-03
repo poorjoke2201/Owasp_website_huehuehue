@@ -35,14 +35,33 @@ export default function App() {
   return (
     <>
       <Dock
-        items={dockItems}
+         items={dockItems}
+
         panelHeight={60}
+
         // CRITICAL: Using vmin for responsive base size
+
         baseItemSize="6vmin" 
+
         magnification={1.8}
+
         distance={250}
+
         spring={{ mass:200,stiffness:50000,damping:4000}}
       />
+
+      {/* CRITICAL FIX: BackgroundStars should be non-interactive 
+        and positioned outside the main scroll container. 
+      */}
+      <BackgroundStars style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        width: '100vw', 
+        height: '100vh', 
+        zIndex: 0, /* Ensure it's the very bottom layer */
+        pointerEvents: 'none' /* CRITICAL: Do not block mouse/touch events */
+      }} />
 
       {/* Main Scroll Container */}
       <div
@@ -52,16 +71,14 @@ export default function App() {
           height: "100vh",
           overflowY: "scroll",
           overflowX: "hidden", 
-          // CRITICAL: Apply scroll snap type here
           scrollSnapType: "y proximity", 
           position: 'relative', 
-          zIndex: 5,
+          zIndex: 1, /* Needs to be high enough to cover BackgroundStars */
+          // Setting the background here ensures a consistent backdrop
+          backgroundColor: 'transparent' 
         }}
       >
-        {/* BackgroundStars is fixed and z-index 0 */}
-        <BackgroundStars />
-        
-        {/* Content sections, each filling 100vh and snapping */}
+        {/* The sections themselves */}
         <section id="landing" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
           <Landing />
         </section>
@@ -78,9 +95,8 @@ export default function App() {
         {/* FIX: Restoring Gallery section */}
         <section id="gallery" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>
           <div style={{ width: '100vw', height: '100vh' }}>
-      <DomeGallery/>
-    </div>
-          
+            <DomeGallery/>
+          </div>
         </section>
         
         <section id="team" style={{ scrollSnapAlign: "start", minHeight: "100vh" }}>

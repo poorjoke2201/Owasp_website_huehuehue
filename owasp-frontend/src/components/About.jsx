@@ -77,9 +77,9 @@ export default function About() {
     <>
       <style>{`
         .about-section {
-          // width: 100vw;
+         width: 100vw;
           min-height: 100vh;
-          background: black;
+          background: transparent;
           color: white;
           display: flex;
           justify-content: center;
@@ -207,8 +207,7 @@ export default function About() {
       `}</style>
 
       <section id="about" ref={aboutRef} className="about-section">
-        {/* Background stars */}
-        <BackgroundStars />
+       
 
         {/* Main container */}
         <div className="about-container">

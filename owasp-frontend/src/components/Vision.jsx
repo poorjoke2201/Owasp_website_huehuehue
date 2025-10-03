@@ -56,13 +56,12 @@ export default function Vision() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        background: "black",
+        
         position: "relative",
-        pointerEvents: "auto",
+       
       }}
     >
-      {/* Background */}
-      <BackgroundStars />
+     
 
       {/* InfiniteScroll full width */}
       <div

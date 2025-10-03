@@ -22,9 +22,9 @@ export default function Landing() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        background: "black",
+        background: "transparent",
         position: "relative",
-        pointerEvents: 'auto',
+        
       }}
     >
       {/* Starry background */}

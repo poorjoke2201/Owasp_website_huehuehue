@@ -14,7 +14,7 @@ export default function Team() {
       style={{
         width: "100vw",
         height: "100vh",
-        background: "black",
+        background: "transparent",
         color: "#f5f7ff",
         position: "relative",
         overflow: "hidden",
@@ -154,7 +154,7 @@ export default function Team() {
           display: grid;
          
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 30px 20px; /* more spacing between cards */
+          gap: 80px 60px; /* more spacing between cards */
         }
 
         .card-wrapper {
@@ -166,6 +166,7 @@ export default function Team() {
 
         /* Footer */
         .team-footer {
+        background: black;
           width: 100%;
           max-width: 1200px;
           margin-top: 40px;

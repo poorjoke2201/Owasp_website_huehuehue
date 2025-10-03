@@ -1,17 +1,18 @@
-// src/components/BackgroundStars.jsx
-
 import { useEffect, useRef } from "react";
 
-export default function BackgroundStars() {
+export default function BackgroundStars({ style }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext("2d");
 
     const resize = () => {
-      canvas.width = window.innerWidth+500;
-      canvas.height = window.innerHeight+500;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      console.log("Canvas resized:", canvas.width, canvas.height);
     };
     resize();
     window.addEventListener("resize", resize);
@@ -19,7 +20,7 @@ export default function BackgroundStars() {
     const numStars = 200;
     const stars = [];
     const shootingStars = [];
-    const shootingColor = "#6471c2ff"; // front bright color
+    const shootingColor = "#6471c2ff"; 
 
     let mouseX = canvas.width / 2;
     let mouseY = canvas.height / 2;
@@ -34,7 +35,6 @@ export default function BackgroundStars() {
       });
     }
 
-    // Function to create a shooting star
     const createShootingStar = () => {
       shootingStars.push({
         x: Math.random() * canvas.width,
@@ -45,18 +45,17 @@ export default function BackgroundStars() {
       });
     };
 
-    // Click to create shooting star
     canvas.addEventListener("click", createShootingStar);
 
-    // Draw everything
     const drawStars = () => {
-      ctx.fillStyle = "black";
+      // Fill with black background
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Normal stars
+      // Draw normal stars
       stars.forEach((star) => {
-        const dx = (mouseX - canvas.width / 2) * (star.radius * 0.1);
-        const dy = (mouseY - canvas.height / 2) * (star.radius * 0.1);
+        const dx = (mouseX - window.innerWidth / 2) * (star.radius * 0.1);
+        const dy = (mouseY - window.innerHeight / 2) * (star.radius * 0.1);
 
         ctx.beginPath();
         ctx.arc(star.x + dx, star.y + dy, star.radius, 0, Math.PI * 2);
@@ -64,17 +63,16 @@ export default function BackgroundStars() {
         ctx.fill();
       });
 
-      // Shooting stars
+      // Draw shooting stars
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const s = shootingStars[i];
         const x2 = s.x + s.length * Math.cos(s.angle);
         const y2 = s.y + s.length * Math.sin(s.angle);
 
-        // Create gradient from tail to head
         const grad = ctx.createLinearGradient(s.x, s.y, x2, y2);
-        grad.addColorStop(0, "rgba(100,113,194,0)"); // tail (transparent)
-        grad.addColorStop(0.7, "rgba(100,113,194,0.5)"); // mid
-        grad.addColorStop(1, shootingColor); // head (bright)
+        grad.addColorStop(0, "rgba(100,113,194,0)");
+        grad.addColorStop(0.7, "rgba(100,113,194,0.5)");
+        grad.addColorStop(1, shootingColor);
 
         ctx.beginPath();
         ctx.moveTo(s.x, s.y);
@@ -87,26 +85,26 @@ export default function BackgroundStars() {
         s.x += Math.cos(s.angle) * s.speed;
         s.y += Math.sin(s.angle) * s.speed;
 
-        // Remove if out of bounds
         if (s.x > canvas.width || s.y > canvas.height) shootingStars.splice(i, 1);
       }
 
-      // Random shooting star creation
       if (Math.random() < 0.02) createShootingStar();
 
       requestAnimationFrame(drawStars);
     };
 
     document.onmousemove = (ev) => {
-      mouseX = ev.pageX - canvas.offsetLeft;
-      mouseY = ev.pageY - canvas.offsetTop;
+      mouseX = ev.pageX; 
+      mouseY = ev.pageY;
     };
 
     drawStars();
+    console.log("BackgroundStars animation started");
 
     return () => {
       window.removeEventListener("resize", resize);
       canvas.removeEventListener("click", createShootingStar);
+      document.onmousemove = null;
     };
   }, []);
 
@@ -117,9 +115,12 @@ export default function BackgroundStars() {
         position: "fixed",
         top: 0,
         left: 0,
+        width: "100vw",
+        height: "100vh",
         zIndex: 0,
+        display: "block",
+        ...style
       }}
     />
   );
-  
 }

@@ -656,8 +656,10 @@ export default function DomeGallery({
       flexDirection: 'column',
       alignItems: 'center',
       minHeight: '100vh',
-      backgroundColor: '#0d1117',
-      color: '#c9d1d9'
+      //backgroundColor: '#0d1117',
+      color: '#c9d1d9',
+      background: "transparent",
+      
     }}>
       {/* HEADER WRAPPER with Z-index fix and new font styles */}
       <div style={{ 
