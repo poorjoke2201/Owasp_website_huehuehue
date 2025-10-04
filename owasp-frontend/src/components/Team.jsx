@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import ProfileCard from "./ProfileCard";
+import "./styles/Team.css";
 import { Instagram, Linkedin } from "lucide-react";
 import { leads, coreMembers } from "./teamData";
 
@@ -12,7 +13,7 @@ export default function Team() {
     <section
       id="team"
       style={{
-        width: "100vw",
+        width: "100%",
         height: "100vh",
         background: "transparent",
         color: "#f5f7ff",
@@ -22,13 +23,14 @@ export default function Team() {
     >
       <style>{`
         .scroll-delegate-wrapper {
-          width: 100vw;
+          width: 100%;
           height: 100vh;
           position: absolute;
           top: 0;
           left: 0;
           /* FIX: Allow inner scrolling */
           overflow-y: auto; 
+          overflow-x: hidden;
           -webkit-overflow-scrolling: touch;
           display: flex;
           justify-content: center;
@@ -38,7 +40,7 @@ export default function Team() {
           width: 100%;
           max-width: 1200px;
           /* FIX 1: Reduced bottom padding from 20vh to 10vh to ensure footer visibility */
-          padding: 10vh 2vw 10vh; 
+          padding: 10vh 20px 10vh; 
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
@@ -129,14 +131,14 @@ export default function Team() {
 
         span.switcher label {
           position: absolute;
-          top: 5px;
-          bottom: 5px;
+          top: 8px;
+          bottom: 4px;
           border-radius: 20px;
           z-index: 1;
         }
 
         .switcher-1 input:checked + label {
-          left: 5px;
+          left: 8px;
           right: var(--label-shift);
           background: var(--switcher-active-slide);
         }
@@ -175,7 +177,7 @@ export default function Team() {
           /* FIX 3: Increased top margin for visual separation */
           margin-top: 60px; 
           /* FIX 4: Increased vertical padding for a longer/taller footer area */
-          padding: 60px 20px 40px; 
+          padding: 60px 20px 70px; 
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
@@ -255,22 +257,33 @@ export default function Team() {
           {/* Footer */}
           <footer className="team-footer">
             <div className="footer-column">
-              <p style={{ fontWeight: 600 }}>© 2025 OWASP NIE Student Chapter.</p>
-              <p style={{ opacity: 0.6, marginTop: '4px' }}>All rights reserved.</p>
+              <p style={{ fontWeight: 600 }}>
+                © 2025 OWASP NIE Student Chapter.
+              </p>
+              <p style={{ opacity: 0.6, marginTop: "4px" }}>
+                All rights reserved.
+              </p>
             </div>
             <div className="footer-column">
               <p style={{ fontWeight: 600 }}>Follow Us</p>
               <div className="footer-social-icons">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.instagram.com/owasp_nie/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Instagram size={20} />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.linkedin.com/company/owasp-nie-mysuru-student-chapter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Linkedin size={20} />
                 </a>
               </div>
             </div>
           </footer>
-
         </div>
       </div>
     </section>
