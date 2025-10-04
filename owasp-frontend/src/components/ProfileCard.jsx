@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
-import './ProfileCard.css';
+import './styles/ProfileCard.css';
 import { Instagram, Linkedin } from 'lucide-react'; 
 
 // --- MODIFIED GRADIENTS FOR DARKER, MUTED APPEARANCE ---

@@ -1,6 +1,6 @@
 import React from 'react';
 import DomeGallery from './DomeGallery'; // Make sure the path is correct
-import './GalleryPage.css'; // You'll need to create this file
+import './styles/GalleryPage.css'; // You'll need to create this file
 
 // Assuming your images array is either imported or defined here
 const DEFAULT_IMAGES = [
