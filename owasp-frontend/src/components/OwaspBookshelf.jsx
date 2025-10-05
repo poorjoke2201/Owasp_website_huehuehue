@@ -504,7 +504,7 @@ const OwaspBookshelf = () => {
               transform: translate3d(0, 0, 0);
             }
             100% { 
-              transform: translate3d(calc(var(--sq-size) * 8), calc(var(--sq-size) * -3), calc(var(--sq-size) * 6));
+              transform: translate3d(calc(var(--sq-size) * 16), calc(var(--sq-size) * -3), calc(var(--sq-size) * 12));
             }
           }
         }
