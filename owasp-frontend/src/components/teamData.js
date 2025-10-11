@@ -63,7 +63,7 @@ export const leads = [
     name: "Piyush Jha",
     title: "Tech Lead",
     avatarUrl: piyush,
-    handle: "poorjoke",
+    handle: "piyush",
     status: "Online",
     socials: {
       instagram: "https://www.instagram.com/piyush_0122/",
@@ -120,7 +120,7 @@ export const leads = [
     name: "Chirag Tibrewal",
     title: "Creative Co-Lead",
     avatarUrl: chirag,
-    handle: "bihariNinja",
+    handle: "chirag",
     status: "Online",
     socials: {
       instagram: "https://www.instagram.com/tibrewal.chirag",

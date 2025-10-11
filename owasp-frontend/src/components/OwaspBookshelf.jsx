@@ -343,6 +343,7 @@ const OwaspBookshelf = () => {
         }
 
         .cover {
+          font-size: calc(var(--sq-size) * 1.2);
           background-color: #fff;
           z-index: 1;
           box-shadow: inset 2px 0 8px rgba(0,0,0,0.3), 0 0 10px rgba(0,0,0,0.2);
@@ -350,23 +351,26 @@ const OwaspBookshelf = () => {
 
         .contents {
           font-size: calc(var(--sq-size) * 0.7);
-          padding: var(--sq-size);
+          padding: var(--sq-size) ;
           color: #333;
           overflow: hidden;
-          word-wrap: break-word;
+          word-wrap: normal;
         }
 
         .contents h1 {
-          font-size: 2em;
+          // font-size: 2em;
+          font-size: calc(var(--sq-size) * 1.2);
           font-family: "Lora", serif;
           font-weight: bold;
-          margin: 0 0 10px 0;
+          margin: 0 1.2vw 1.2vw 0;
         }
 
         .contents p {
           font-family: "Source Sans Pro", serif;
+          font-size: calc(var(--sq-size) * 0.65);
           line-height: 1.4;
-          margin: 0;
+          margin: 0 1.8vw;
+          text-align: left;
         }
 
         .reset-btn {
@@ -374,9 +378,10 @@ const OwaspBookshelf = () => {
           bottom: 5%;
           left: 50%;
           transform: translateX(-50%);
-          background-color: #6471c2ff;
+          //background-color: #6471c2ff;
+          background-color: #a00;
           border: 0;
-          border-radius: 0;
+          border-radius: 15px;
           color: #fff;
           padding: 0.5em 0.75em;
           font-family: "Hind", sans-serif;
@@ -504,7 +509,7 @@ const OwaspBookshelf = () => {
               transform: translate3d(0, 0, 0);
             }
             100% { 
-              transform: translate3d(calc(var(--sq-size) * 8), calc(var(--sq-size) * -3), calc(var(--sq-size) * 6));
+              transform: translate3d(calc(var(--sq-size) * 16), calc(var(--sq-size) * -3), calc(var(--sq-size) * 12));
             }
           }
         }

@@ -3,10 +3,10 @@ import { useEffect, useRef } from "react";
 // Ensure you have this installed: npm install @react-spring/web
 import { useSpring } from '@react-spring/web'; 
 
-// Placeholder components to resolve compilation errors
-const BackgroundStars = () => <div style={{ zIndex: 1, position: 'absolute', width: '100%', height: '100%' }}></div>;
-const OwaspBookshelf = () => <div style={{ background: '#333', padding: '20px' }}>Bookshelf Placeholder</div>;
-const Owasp = 'https://placehold.co/120x120/000/fff?text=OWASP+Logo'; // Placeholder URL
+// Placeholder components—Note: I will remove these placeholders as they aren't necessary for the fix
+// const BackgroundStars = () => <div style={{ zIndex: 1, position: 'absolute', width: '100%', height: '100%' }}></div>;
+// const OwaspBookshelf = () => <div style={{ background: '#333', padding: '20px' }}>Bookshelf Placeholder</div>;
+// const Owasp = 'https://placehold.co/120x120/000/fff?text=OWASP+Logo'; 
 
 export default function CobeComponent() {
   const canvasRef = useRef(null);
@@ -26,30 +26,18 @@ export default function CobeComponent() {
     },
   }));
 
-  // LOCATIONS: Added Major OWASP and Tech Hub Locations
+  // LOCATIONS (remains the same)
   const markers = [
-    // --- Existing Markers ---
-    // 1. NIE Mysuru, India
     { location: [12.2958, 76.6552], size: 0.1 }, 
-    // 2. OWASP Foundation Headquarters (Los Angeles Area, US)
     { location: [34.0522, -118.2437], size: 0.1 }, 
-    // 3. London, UK
     { location: [51.5074, 0.1278], size: 0.1 },
-    // 4. Tokyo, Japan
     { location: [35.6895, 139.6917], size: 0.1 },
-    // 5. Sydney, Australia (APAC Tech Hub)
     { location: [-33.8688, 151.2093], size: 0.1 }, 
-    // 6. Berlin, Germany (European Tech/Cyber Hub)
     { location: [52.5200, 13.4050], size: 0.1 },
-    // 7. New York City, USA
     { location: [40.7128, -74.0060], size: 0.1 },
-    // 8. São Paulo, Brazil (South America Tech Center)
     { location: [-23.5505, -46.6333], size: 0.1 },
-    // 9. Dubai, UAE (Middle East Hub)
     { location: [25.276987, 55.296249], size: 0.1 },
-    // 10. Toronto, Canada
     { location: [43.6532, -79.3832], size: 0.1 },
-    // 11. Amsterdam, Netherlands
     { location: [52.3676, 4.9041], size: 0.1 },
   ];
 
@@ -76,7 +64,7 @@ export default function CobeComponent() {
       baseColor: [1, 1, 1],
       markerColor: [251 / 255, 100 / 255, 21 / 255],
       glowColor: [0.8, 0.8, 0.8],
-      markers: markers, // Added markers here
+      markers: markers,
       onRender: (state) => {
         // Auto-rotate only when NOT dragging
         if (!pointerInteracting.current) {
@@ -89,7 +77,6 @@ export default function CobeComponent() {
       },
     });
 
-    // FADE-IN FIX: Removed unnecessary conditional check
     setTimeout(() => canvasRef.current.style.opacity = '1');
 
     return () => {
@@ -97,6 +84,67 @@ export default function CobeComponent() {
       window.removeEventListener('resize', onResize);
     };
   }, [api, r]); 
+
+  // --- EVENT HANDLERS ---
+  
+  const handlePointerDown = (e) => {
+    // Standard mouse/pointer down handling
+    pointerInteracting.current = e.clientX - pointerInteractionMovement.current;
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = 'grabbing';
+    }
+  };
+
+  const handlePointerUp = () => {
+    // Standard mouse/pointer up handling
+    pointerInteracting.current = null;
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handlePointerOut = () => {
+    // Standard mouse/pointer out handling
+    pointerInteracting.current = null;
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    // Standard mouse move handling
+    if (pointerInteracting.current !== null) {
+      const delta = e.clientX - pointerInteracting.current;
+      pointerInteractionMovement.current = delta;
+      api.start({ r: delta / 130 }); 
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    // CRITICAL FIX 1: Prevent default browser scrolling when touch starts
+    if (e.cancelable) {
+        e.preventDefault();
+    }
+    // Set interaction reference based on first touch point
+    if (e.touches.length > 0) {
+        pointerInteracting.current = e.touches[0].clientX - pointerInteractionMovement.current;
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    // Handle the touch drag movement
+    if (pointerInteracting.current !== null && e.touches[0]) {
+      const delta = e.touches[0].clientX - pointerInteracting.current;
+      pointerInteractionMovement.current = delta;
+      api.start({ r: delta / 130 }); 
+    }
+  };
+  
+  const handleTouchEnd = () => {
+      // End interaction on touch end
+      pointerInteracting.current = null;
+  };
+  // -------------------------
 
   return (
     <div className="globe-container">
@@ -119,6 +167,8 @@ export default function CobeComponent() {
           position: absolute; /* Allows oversized canvas to be positioned */
           top: -27.5%; /* Center the 155% canvas */
           left: -27.5%;
+          /* CRITICAL MOBILE FIX: Tell the browser this element handles scrolling */
+          touch-action: none;
         }
 
         /* Adjust size for smaller tablets */
@@ -140,41 +190,21 @@ export default function CobeComponent() {
       
       <canvas
         ref={canvasRef}
-        // EVENT HANDLERS
-        onPointerDown={(e) => {
-          pointerInteracting.current = e.clientX - pointerInteractionMovement.current;
-          if (canvasRef.current) {
-            canvasRef.current.style.cursor = 'grabbing';
-          }
-        }}
-        onPointerUp={() => {
-          pointerInteracting.current = null;
-          if (canvasRef.current) {
-            canvasRef.current.style.cursor = 'grab';
-          }
-        }}
-        onPointerOut={() => {
-          pointerInteracting.current = null;
-          if (canvasRef.current) {
-            canvasRef.current.style.cursor = 'grab';
-          }
-        }}
-        onMouseMove={(e) => {
-          if (pointerInteracting.current !== null) {
-            const delta = e.clientX - pointerInteracting.current;
-            pointerInteractionMovement.current = delta;
-            api.start({ r: delta / 130 }); 
-          }
-        }}
-        onTouchMove={(e) => {
-          if (pointerInteracting.current !== null && e.touches[0]) {
-            const delta = e.touches[0].clientX - pointerInteracting.current;
-            // Note: delta is based only on X movement for horizontal spin
-            pointerInteractionMovement.current = delta;
-            api.start({ r: delta / 130 }); 
-          }
-        }}
-        // Removed unnecessary inline style from canvas since CSS handles it
+        // DESKTOP/POINTER HANDLERS
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerOut={handlePointerOut}
+        onMouseMove={handleMouseMove}
+        
+        // MOBILE/TOUCH HANDLERS (CRITICAL)
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        
+        // Set passive: false for touch events to allow preventDefault to work
+        // NOTE: React uses onTouchMove (which is passive: true by default), 
+        // so we must use CSS touch-action: none and explicit preventDefault 
+        // on the start event to ensure the gesture is captured.
       />
     </div>
   );
