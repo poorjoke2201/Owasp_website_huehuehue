@@ -222,10 +222,10 @@ export const coreMembers = [
     },
   },
   {
-    name: "Core 6",
-    title: "Frontend Dev",
+    name: "Suhani",
+    title: "Tech Core",
     avatarUrl: "/avatars/core6.jpg",
-    handle: "core6",
+    handle: "suhani",
     status: "Online",
     socials: { instagram: "#", linkedin: "#" },
   },
