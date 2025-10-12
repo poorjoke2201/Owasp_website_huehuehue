@@ -35,7 +35,7 @@ import ritesh from "../assets/ritesh.png";
 import kartik from "../assets/kartik.png";
 import akash from "../assets/akash.png";
 import shashwat from "../assets/shashwat.png";
-
+import Suhani from "../assets/suhani.jpg";
 export const leads = [
   {
     name: "Snehil Singh Rokey",
@@ -223,8 +223,8 @@ export const coreMembers = [
   },
   {
     name: "Suhani",
-    title: "Tech Core",
-    avatarUrl: "/avatars/core6.jpg",
+      title: "Tech Core",
+      avatarUrl: `${Suhani}`,
     handle: "suhani",
     status: "Online",
     socials: { instagram: "#", linkedin: "#" },
