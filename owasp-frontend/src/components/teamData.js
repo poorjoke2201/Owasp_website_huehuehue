@@ -10,7 +10,32 @@ import chirag from "../assets/5.png";
 import aadi from "../assets/11.png";
 import jihaan from "../assets/10.png";
 import prak from "../assets/6.png";
-
+import harshal from "../assets/harshal.png";
+import harshit from "../assets/harshit.png";
+import bhawana from "../assets/bhawana.png";
+import sinchanaS from "../assets/sinchana.png";
+import rishad from "../assets/rishad.png";
+import ayushD from "../assets/ayushdeo.png";
+import aayush from "../assets/aayush.png";
+import ayush from "../assets/ayush.png";
+import priyanshu from "../assets/priyanshu.png";
+import prajwal from "../assets/prajjwal.png";
+import ved from "../assets/ved.png";
+import stuti from "../assets/stuti.png";
+import utkarsh from "../assets/utkarsh.png";
+import golla from "../assets/golla.png";
+import brendon from "../assets/brendon.png";
+import spoorti from "../assets/spoorti.png";
+import azhan from "../assets/azhan.png";
+import arjun from "../assets/arjun.png";
+import shankarshan from "../assets/shankarshan.png";
+import ritish from "../assets/1231.png";
+import harshita from "../assets/harshita.png";
+import ritesh from "../assets/ritesh.png";
+import kartik from "../assets/kartik.png";
+import akash from "../assets/akash.png";
+import shashwat from "../assets/shashwat.png";
+import Suhani from "../assets/suhani.jpg";
 export const leads = [
   {
     name: "Snehil Singh Rokey",
@@ -144,7 +169,7 @@ export const coreMembers = [
   {
     name: "Harshal Mudgal",
     title: "Management Core",
-    avatarUrl: "/avatars/core1.jpg",
+    avatarUrl: `${harshal}`,
     handle: "harshal",
     status: "Online",
     socials: {
@@ -155,7 +180,7 @@ export const coreMembers = [
   {
     name: "Harshit Kumar",
     title: "Tech Core",
-    avatarUrl: "/avatars/core2.jpg",
+    avatarUrl: `${harshit}`,
     handle: "harshit",
     status: "Online",
     socials: {
@@ -166,7 +191,7 @@ export const coreMembers = [
   {
     name: "Bhawana",
     title: "Tech Core",
-    avatarUrl: "/avatars/core3.jpg",
+    avatarUrl: `${bhawana}`,
     handle: "bhawana",
     status: "Online",
     socials: {
@@ -177,7 +202,7 @@ export const coreMembers = [
   {
     name: "Sinchana Shridhar",
     title: "Tech Core",
-    avatarUrl: "/avatars/core4.jpg",
+    avatarUrl: `${sinchanaS}`,
     handle: "sinchana",
     status: "Online",
     socials: {
@@ -186,25 +211,28 @@ export const coreMembers = [
     },
   },
   {
-    name: "Core 5",
-    title: "UI Designer",
-    avatarUrl: "/avatars/core5.jpg",
-    handle: "core5",
+    name: "Ritish Katarki",
+    title: "Creative Core",
+    avatarUrl: `${ritish}`,
+    handle: "ritish",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/ritish_katarki",
+      linkedin: "https://www.linkedin.com/in/ritish-katarki-24440732b",
+    },
   },
   {
-    name: "Core 6",
-    title: "Frontend Dev",
-    avatarUrl: "/avatars/core6.jpg",
-    handle: "core6",
+    name: "Suhani",
+      title: "Tech Core",
+      avatarUrl: `${Suhani}`,
+    handle: "suhani",
     status: "Online",
     socials: { instagram: "#", linkedin: "#" },
   },
   {
     name: "Ritesh Kumar Karn",
     title: "Tech Core",
-    avatarUrl: "/avatars/core7.jpg",
+    avatarUrl: `${ritesh}`,
     handle: "riteshkrkarn",
     status: "Online",
     socials: {
@@ -213,9 +241,9 @@ export const coreMembers = [
     },
   },
   {
-    name: "Akash Kumar Kesari",
+    name: "Akash Kumar Keshri",
     title: "Creative Core",
-    avatarUrl: "/avatars/core8.jpg",
+    avatarUrl: `${akash}`,
     handle: "chucklesx",
     status: "Online",
     socials: {
@@ -226,7 +254,7 @@ export const coreMembers = [
   {
     name: "Shashwat Sharma",
     title: "Creative Core",
-    avatarUrl: "/avatars/core9.jpg",
+    avatarUrl: `${shashwat}`,
     handle: "luminal",
     status: "Online",
     socials: {
@@ -235,17 +263,20 @@ export const coreMembers = [
     },
   },
   {
-    name: "Core 10",
-    title: "Backend Dev",
-    avatarUrl: "/avatars/core10.jpg",
-    handle: "core10",
+    name: "Kartik Gadad",
+    title: "Creative Core",
+    avatarUrl: `${kartik}`,
+    handle: "kartik",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/kartikg.0/",
+      linkedin: "https://www.linkedin.com/in/kartik-gadad-793516311/",
+    },
   },
   {
     name: "Rishad Panjwani",
     title: "Marketing Core",
-    avatarUrl: "/avatars/core15.jpg",
+    avatarUrl: `${rishad}`,
     handle: "rishadpunjabi",
     status: "Online",
     socials: {
@@ -254,65 +285,86 @@ export const coreMembers = [
     },
   },
   {
-    name: "Core 11",
-    title: "UI Designer",
-    avatarUrl: "/avatars/core11.jpg",
-    handle: "core11",
+    name: "Kaki Harshita",
+    title: "Creative Core",
+    avatarUrl: `${harshita}`,
+    handle: "harshita",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/harshiittaa.04",
+      linkedin: "https://www.linkedin.com/in/kaki-harshita-116700335",
+    },
   },
   {
-    name: "Core 12",
+    name: "Utkarsh Kumawat",
     title: "Frontend Dev",
-    avatarUrl: "/avatars/core12.jpg",
-    handle: "core12",
+    avatarUrl: `${utkarsh}`,
+    handle: "utkarsh",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/utkarshk.0201",
+      linkedin: "https://www.linkedin.com/in/utkarsh-kumawat-2b6628301",
+    },
   },
   {
-    name: "Core 13",
-    title: "Frontend Dev",
-    avatarUrl: "/avatars/core12.jpg",
-    handle: "core12",
+    name: "Golla Venkata Aditya",
+    title: "Marketing Core",
+    avatarUrl: `${golla}`,
+    handle: "aditya",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/_golla_aditya_/",
+      linkedin: "https://www.linkedin.com/in/aditya-golla-360b27332/",
+    },
   },
   {
-    name: "Core 14",
-    title: "Frontend Dev",
-    avatarUrl: "/avatars/core12.jpg",
-    handle: "core12",
+    name: "Brendon Fernandes",
+    title: "Tech Core",
+    avatarUrl: `${brendon}`,
+    handle: "brendon",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/brendevfern/",
+      linkedin: "https://www.linkedin.com/in/brendon-fernandes-072526330/",
+    },
   },
   {
-    name: "Core 15",
-    title: "Frontend Dev",
-    avatarUrl: "/avatars/core12.jpg",
-    handle: "core12",
+    name: "Stuti Shobhit Gupta",
+    title: "Management Core",
+    avatarUrl: `${stuti}`,
+    handle: "stuti",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/stuti1836",
+      linkedin: "https://www.linkedin.com/in/stuti-gupta-789aa5318",
+    },
   },
   {
-    name: "Core 16",
-    title: "Frontend Dev",
-    avatarUrl: "/avatars/core12.jpg",
-    handle: "core12",
+    name: "Ved Pranav Das",
+    title: "Management Core",
+    avatarUrl: `${ved}`,
+    handle: "ved",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/vpdwastaken_/",
+      linkedin: "https://www.linkedin.com/in/ved-pranav-das-2703b5325/",
+    },
   },
   {
-    name: "Core 17",
-    title: "Frontend Dev",
-    avatarUrl: "/avatars/core12.jpg",
-    handle: "core12",
+    name: "Prajjwal Sahu",
+    title: "Tech Core",
+    avatarUrl: `${prajwal}`,
+    handle: "prajjwal",
     status: "Online",
-    socials: { instagram: "#", linkedin: "#" },
+    socials: {
+      instagram: "https://www.instagram.com/prajjwalsahuu/",
+      linkedin: "https://www.linkedin.com/in/prajjwal-sahu-498620221/",
+    },
   },
   {
     name: "Ayush Deo",
     title: "Management Core",
-    avatarUrl: "/avatars/core13.jpg",
+    avatarUrl: `${ayushD}`,
     handle: "ayushdeo",
     status: "Online",
     socials: {
@@ -323,7 +375,7 @@ export const coreMembers = [
   {
     name: "Spoorti Hosmath ",
     title: "Marketing Core",
-    avatarUrl: "/avatars/core14.jpg",
+    avatarUrl: `${spoorti}`,
     handle: "spoorti",
     status: "Online",
     socials: {
@@ -334,7 +386,7 @@ export const coreMembers = [
   {
     name: "Aayush Kumar ",
     title: "Tech Core",
-    avatarUrl: "/avatars/core16.jpg",
+    avatarUrl: `${aayush}`,
     handle: "aayush",
     status: "Online",
     socials: {
@@ -345,7 +397,7 @@ export const coreMembers = [
   {
     name: "Priyanshu Raj",
     title: "Tech Core",
-    avatarUrl: "/avatars/core17.jpg",
+    avatarUrl: `${priyanshu}`,
     handle: "priyanshu",
     status: "Online",
     socials: {
@@ -356,7 +408,7 @@ export const coreMembers = [
   {
     name: "Mohammed Azhan",
     title: "Event Management Core",
-    avatarUrl: "/avatars/core18.jpg",
+    avatarUrl: `${azhan}`,
     handle: "azhan",
     status: "Online",
     socials: {
@@ -367,7 +419,7 @@ export const coreMembers = [
   {
     name: "Ayush Kumar",
     title: "Event Management Core",
-    avatarUrl: "/avatars/core19.jpg",
+    avatarUrl: `${ayush}`,
     handle: "ayush",
     status: "Online",
     socials: {
@@ -378,7 +430,7 @@ export const coreMembers = [
   {
     name: "Arjun Agrawal",
     title: "Event Management Core",
-    avatarUrl: "/avatars/core20.jpg",
+    avatarUrl: `${arjun}`,
     handle: "arjun",
     status: "Online",
     socials: {
@@ -389,7 +441,7 @@ export const coreMembers = [
   {
     name: "Shankarshan Thakur",
     title: "Marketing Core",
-    avatarUrl: "/avatars/core21.jpg",
+    avatarUrl: `${shankarshan}`,
     handle: "shankarshan",
     status: "Online",
     socials: {
