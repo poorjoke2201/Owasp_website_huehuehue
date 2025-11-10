@@ -264,7 +264,7 @@ export const coreMembers = [
   },
   {
     name: "Kartik Gadad",
-    title: "Creative Core",
+    title: "Technical Core",
     avatarUrl: `${kartik}`,
     handle: "kartik",
     status: "Online",
@@ -297,7 +297,7 @@ export const coreMembers = [
   },
   {
     name: "Utkarsh Kumawat",
-    title: "Frontend Dev",
+    title: "Technical Core",
     avatarUrl: `${utkarsh}`,
     handle: "utkarsh",
     status: "Online",
