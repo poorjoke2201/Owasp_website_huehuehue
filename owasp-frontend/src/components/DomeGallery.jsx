@@ -1,6 +1,109 @@
+
+
 import { useEffect, useMemo, useRef, useCallback, useState } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './styles/DomeGallery.css';
+
+
+import img1 from "../assets/eventPhotos/askOwasp3.0/01.webp";
+import img2 from "../assets/eventPhotos/askOwasp3.0/02.webp";
+import img3 from "../assets/eventPhotos/askOwasp3.0/03.webp";
+import img4 from "../assets/eventPhotos/askOwasp3.0/04.webp";
+import img5 from "../assets/eventPhotos/askOwasp3.0/05.webp";
+import img6 from "../assets/eventPhotos/askOwasp3.0/06.webp";
+import img7 from "../assets/eventPhotos/askOwasp3.0/07.webp";
+import img8 from "../assets/eventPhotos/askOwasp3.0/08.webp";
+import img9 from "../assets/eventPhotos/askOwasp3.0/09.webp";
+import img10 from "../assets/eventPhotos/askOwasp3.0/010.webp";
+import img11 from "../assets/eventPhotos/askOwasp3.0/011.webp";
+import img12 from "../assets/eventPhotos/askOwasp3.0/012.webp";
+import img13 from "../assets/eventPhotos/askOwasp3.0/013.webp";
+import img14 from "../assets/eventPhotos/askOwasp3.0/014.webp";
+import img15 from "../assets/eventPhotos/askOwasp3.0/015.webp";
+import img16 from "../assets/eventPhotos/askOwasp3.0/016.webp";
+import img17 from "../assets/eventPhotos/askOwasp3.0/017.webp";
+import img18 from "../assets/eventPhotos/askOwasp3.0/018.webp";
+import img19 from "../assets/eventPhotos/askOwasp3.0/019.webp";
+import img20 from "../assets/eventPhotos/askOwasp3.0/020.webp";
+import img21 from "../assets/eventPhotos/askOwasp3.0/021.webp";
+import img22 from "../assets/eventPhotos/askOwasp3.0/022.webp";
+import img23 from "../assets/eventPhotos/askOwasp3.0/023.webp";
+import img24 from "../assets/eventPhotos/askOwasp3.0/024.webp";
+import img25 from "../assets/eventPhotos/askOwasp3.0/025.webp";
+import img26 from "../assets/eventPhotos/askOwasp3.0/026.webp";
+import img27 from "../assets/eventPhotos/askOwasp3.0/027.webp";
+import img28 from "../assets/eventPhotos/askOwasp3.0/028.webp";
+import img29 from "../assets/eventPhotos/askOwasp3.0/029.webp";
+import img30 from "../assets/eventPhotos/askOwasp3.0/030.webp";
+import img31 from "../assets/eventPhotos/askOwasp3.0/031.webp";
+import img32 from "../assets/eventPhotos/askOwasp3.0/032.webp";
+import img33 from "../assets/eventPhotos/askOwasp3.0/033.webp";
+import img34 from "../assets/eventPhotos/askOwasp3.0/034.webp";
+import img35 from "../assets/eventPhotos/askOwasp3.0/035.webp";
+import img36 from "../assets/eventPhotos/askOwasp3.0/036.webp";
+import img37 from "../assets/eventPhotos/askOwasp3.0/037.webp";
+import img38 from "../assets/eventPhotos/askOwasp3.0/038.webp";
+import img39 from "../assets/eventPhotos/askOwasp3.0/039.webp";
+import img40 from "../assets/eventPhotos/askOwasp3.0/040.webp";
+import img41 from "../assets/eventPhotos/askOwasp3.0/041.webp";
+import img42 from "../assets/eventPhotos/askOwasp3.0/042.webp";
+import img43 from "../assets/eventPhotos/askOwasp3.0/043.webp";
+import img44 from "../assets/eventPhotos/askOwasp3.0/044.webp";
+import img45 from "../assets/eventPhotos/askOwasp3.0/045.webp";
+import img46 from "../assets/eventPhotos/askOwasp3.0/046.webp";
+import img47 from "../assets/eventPhotos/askOwasp3.0/047.webp";
+
+// import img1 from "../assets/eventPhotos/askOwasp3.0/01.png";
+// import img2 from "../assets/eventPhotos/askOwasp3.0/02.png";
+// import img3 from "../assets/eventPhotos/askOwasp3.0/03.png";
+// import img4 from "../assets/eventPhotos/askOwasp3.0/04.png";
+// import img5 from "../assets/eventPhotos/askOwasp3.0/05.png";
+// import img6 from "../assets/eventPhotos/askOwasp3.0/06.png";
+// import img7 from "../assets/eventPhotos/askOwasp3.0/07.png";
+// import img8 from "../assets/eventPhotos/askOwasp3.0/08.png";
+// import img9 from "../assets/eventPhotos/askOwasp3.0/09.png";
+// import img10 from "../assets/eventPhotos/askOwasp3.0/010.png";
+// import img11 from "../assets/eventPhotos/askOwasp3.0/011.png";
+// import img12 from "../assets/eventPhotos/askOwasp3.0/012.png";
+// import img13 from "../assets/eventPhotos/askOwasp3.0/013.png";
+// import img14 from "../assets/eventPhotos/askOwasp3.0/014.png";
+// import img15 from "../assets/eventPhotos/askOwasp3.0/015.png";
+// import img16 from "../assets/eventPhotos/askOwasp3.0/016.png";
+// import img17 from "../assets/eventPhotos/askOwasp3.0/017.png";
+// import img18 from "../assets/eventPhotos/askOwasp3.0/018.png";
+// import img19 from "../assets/eventPhotos/askOwasp3.0/019.png";
+// import img20 from "../assets/eventPhotos/askOwasp3.0/020.png";
+// import img21 from "../assets/eventPhotos/askOwasp3.0/021.png";
+// import img22 from "../assets/eventPhotos/askOwasp3.0/022.png";
+// import img23 from "../assets/eventPhotos/askOwasp3.0/023.png";
+// import img24 from "../assets/eventPhotos/askOwasp3.0/024.png";
+// import img25 from "../assets/eventPhotos/askOwasp3.0/025.png";
+// import img26 from "../assets/eventPhotos/askOwasp3.0/026.png";
+// import img27 from "../assets/eventPhotos/askOwasp3.0/027.png";
+// import img28 from "../assets/eventPhotos/askOwasp3.0/028.png";
+// import img29 from "../assets/eventPhotos/askOwasp3.0/029.png";
+// import img30 from "../assets/eventPhotos/askOwasp3.0/030.png";
+// import img31 from "../assets/eventPhotos/askOwasp3.0/031.png";
+// import img32 from "../assets/eventPhotos/askOwasp3.0/032.png";
+// import img33 from "../assets/eventPhotos/askOwasp3.0/033.png";
+// import img34 from "../assets/eventPhotos/askOwasp3.0/034.png";
+// import img35 from "../assets/eventPhotos/askOwasp3.0/035.png";
+// import img36 from "../assets/eventPhotos/askOwasp3.0/036.png";
+// import img37 from "../assets/eventPhotos/askOwasp3.0/037.png";
+// import img38 from "../assets/eventPhotos/askOwasp3.0/038.png";
+// import img39 from "../assets/eventPhotos/askOwasp3.0/039.png";
+// import img40 from "../assets/eventPhotos/askOwasp3.0/040.png";
+// import img41 from "../assets/eventPhotos/askOwasp3.0/041.png";
+// import img42 from "../assets/eventPhotos/askOwasp3.0/042.png";
+// import img43 from "../assets/eventPhotos/askOwasp3.0/043.png";
+// import img44 from "../assets/eventPhotos/askOwasp3.0/044.png";
+// import img45 from "../assets/eventPhotos/askOwasp3.0/045.png";
+// import img46 from "../assets/eventPhotos/askOwasp3.0/046.png";
+// import img47 from "../assets/eventPhotos/askOwasp3.0/047.png";
+
+
+
+
 
 // --- CONFIGURATION ---
 const TAGLINE_MESSAGE = "Curated Chaos, Just for You.";
@@ -9,33 +112,58 @@ const SHUFFLE_TIME_OFFSET = 3;
 const TAGLINE_COLOR = '#8b949e';
 // ---------------------
 
+
+
 const DEFAULT_IMAGES = [
-  {
-    src: 'https://images.unsplash.com/photo-1755331039789-7e5680e26e8f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Abstract art'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1755569309049-98410b94f66d?q=80&w=772&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Modern sculpture'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Digital artwork'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Contemporary art'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Geometric pattern'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Textured surface'
-  },
-  { src: 'https://pbs.twimg.com/media/Gyla7NnXMAAXSo_?format=jpg&name=large', alt: 'Social media image' }
+  { src: img1, alt: "AskOwasp 3.0 Event Photo 1" },
+  { src: img2, alt: "AskOwasp 3.0 Event Photo 2" },
+  { src: img3, alt: "AskOwasp 3.0 Event Photo 3" },
+  { src: img4, alt: "AskOwasp 3.0 Event Photo 4" },
+  { src: img5, alt: "AskOwasp 3.0 Event Photo 5" },
+  { src: img6, alt: "AskOwasp 3.0 Event Photo 6" },
+  { src: img7, alt: "AskOwasp 3.0 Event Photo 7" },
+  { src: img8, alt: "AskOwasp 3.0 Event Photo 8" },
+  { src: img9, alt: "AskOwasp 3.0 Event Photo 9" },
+  { src: img10, alt: "AskOwasp 3.0 Event Photo 10" },
+  { src: img11, alt: "AskOwasp 3.0 Event Photo 11" },
+  { src: img12, alt: "AskOwasp 3.0 Event Photo 12" },
+  { src: img13, alt: "AskOwasp 3.0 Event Photo 13" },
+  { src: img14, alt: "AskOwasp 3.0 Event Photo 14" },
+  { src: img15, alt: "AskOwasp 3.0 Event Photo 15" },
+  { src: img16, alt: "AskOwasp 3.0 Event Photo 16" },
+  { src: img17, alt: "AskOwasp 3.0 Event Photo 17" },
+  { src: img18, alt: "AskOwasp 3.0 Event Photo 18" },
+  { src: img19, alt: "AskOwasp 3.0 Event Photo 19" },
+  { src: img20, alt: "AskOwasp 3.0 Event Photo 20" },
+  { src: img21, alt: "AskOwasp 3.0 Event Photo 21" },
+  { src: img22, alt: "AskOwasp 3.0 Event Photo 22" },
+  { src: img23, alt: "AskOwasp 3.0 Event Photo 23" },
+  { src: img24, alt: "AskOwasp 3.0 Event Photo 24" },
+  { src: img25, alt: "AskOwasp 3.0 Event Photo 25" },
+  { src: img26, alt: "AskOwasp 3.0 Event Photo 26" },
+  { src: img27, alt: "AskOwasp 3.0 Event Photo 27" },
+  { src: img28, alt: "AskOwasp 3.0 Event Photo 28" },
+  { src: img29, alt: "AskOwasp 3.0 Event Photo 29" },
+  { src: img30, alt: "AskOwasp 3.0 Event Photo 30" },
+  { src: img31, alt: "AskOwasp 3.0 Event Photo 31" },
+  { src: img32, alt: "AskOwasp 3.0 Event Photo 32" },
+  { src: img33, alt: "AskOwasp 3.0 Event Photo 33" },
+  { src: img34, alt: "AskOwasp 3.0 Event Photo 34" },
+  { src: img35, alt: "AskOwasp 3.0 Event Photo 35" },
+  { src: img36, alt: "AskOwasp 3.0 Event Photo 36" },
+  { src: img37, alt: "AskOwasp 3.0 Event Photo 37" },
+  { src: img38, alt: "AskOwasp 3.0 Event Photo 38" },
+  { src: img39, alt: "AskOwasp 3.0 Event Photo 39" },
+  { src: img40, alt: "AskOwasp 3.0 Event Photo 40" },
+  { src: img41, alt: "AskOwasp 3.0 Event Photo 41" },
+  { src: img42, alt: "AskOwasp 3.0 Event Photo 42" },
+  { src: img43, alt: "AskOwasp 3.0 Event Photo 43" },
+  { src: img44, alt: "AskOwasp 3.0 Event Photo 44" },
+  { src: img45, alt: "AskOwasp 3.0 Event Photo 45" },
+  { src: img46, alt: "AskOwasp 3.0 Event Photo 46" },
+  { src: img47, alt: "AskOwasp 3.0 Event Photo 47" },
 ];
+
 
 const DEFAULTS = {
   autorotate: true,

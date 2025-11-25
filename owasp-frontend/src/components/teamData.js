@@ -200,7 +200,7 @@ export const coreMembers = [
     },
   },
   {
-    name: "Sinchana Shridhar",
+    name: "Sinchana Sridhar",
     title: "Tech Core",
     avatarUrl: `${sinchanaS}`,
     handle: "sinchana",
